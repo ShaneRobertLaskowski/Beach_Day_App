@@ -1,14 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:beach_day"
              x:Class="beach_day.MainPage">
+    <MasterDetailPage.Master>
+        <ContentPage BackgroundColor="#E0F4FF" Padding="10" Title="Master">
+            <ContentPage.Content>
+                <StackLayout>
+                    <!-- #000066	#E0F4FF	#FFFFFF	#FFCC00 -->
+                    <!-- Place new controls here -->
+                    <Label Text="Welcome to the Master page, set Detail of the master page to alter the current page." 
+                           HorizontalOptions="Center"
+                           VerticalOptions="CenterAndExpand" />
+                </StackLayout>
+             </ContentPage.Content>
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-    </StackLayout>
+        </ContentPage>
+    </MasterDetailPage.Master>
 
-</ContentPage>
+    <MasterDetailPage.Detail>
+        <ContentPage
+            Padding="10">
+            <ContentPage.Content>
+                <StackLayout Margin="5,40,5,5">
+                    <Label Text="Detail Page" />
+                </StackLayout>
+            </ContentPage.Content>
+        </ContentPage>
+    </MasterDetailPage.Detail>
+</MasterDetailPage>
