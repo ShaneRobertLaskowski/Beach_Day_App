@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:beach_day"
              x:Class="beach_day.MainPage">
     <MasterDetailPage.Master>
-        <ContentPage BackgroundColor="#E0F4FF" Padding="30" Title="Master">
+        <ContentPage BackgroundColor="#E0F4FF" Padding="20" Title="Master">
             <ContentPage.Content>
                 <StackLayout>
                     <!-- #000066	#E0F4FF	#FFFFFF	#FFCC00 -->
@@ -28,11 +28,13 @@
                             VerticalOptions="CenterAndExpand"
                             HorizontalOptions="Center"
                             Clicked ="About_Creation_Button" />
-                    <Image Source="beachDayLogo.png" 
+                    <Image Source="beachDayLogo.png"
+                           WidthRequest="50"
+                           HeightRequest="50"
                            VerticalOptions="CenterAndExpand" 
                            HorizontalOptions="Center"/>
                 </StackLayout>
-             </ContentPage.Content>
+            </ContentPage.Content>
 
         </ContentPage>
     </MasterDetailPage.Master>

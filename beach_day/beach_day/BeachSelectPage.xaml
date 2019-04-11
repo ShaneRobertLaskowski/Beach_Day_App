@@ -9,6 +9,8 @@
                    Then the user can click to launch google maps."
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+
+            <Button Text="Display Weather Location" HeightRequest="30" FontSize="7" Clicked="Beach_SelectionButton_Clicked"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -43,10 +43,10 @@ namespace beach_day.Models
         public long Time { get; set; }
 
         [JsonProperty("summary")]
-        public Summary Summary { get; set; }
+        public string Summary { get; set; } //Summary not string
 
         [JsonProperty("icon")]
-        public Icon Icon { get; set; }
+        public string Icon { get; set; } //Icon not string
 
         [JsonProperty("nearestStormDistance", NullValueHandling = NullValueHandling.Ignore)]
         public long? NearestStormDistance { get; set; }
@@ -250,7 +250,7 @@ namespace beach_day.Models
         public string Summary { get; set; }
 
         [JsonProperty("icon")]
-        public Icon Icon { get; set; }
+        public string Icon { get; set; } //Icon not string
 
         [JsonProperty("data")]
         public List<Currently> Data { get; set; }
@@ -262,7 +262,7 @@ namespace beach_day.Models
         public string Summary { get; set; }
 
         [JsonProperty("icon")]
-        public Icon Icon { get; set; }
+        public string Icon { get; set; } //Icon not string
 
         [JsonProperty("data")]
         public List<MinutelyDatum> Data { get; set; }
