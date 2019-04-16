@@ -106,7 +106,7 @@ namespace beach_day.Models
         public string Summary { get; set; }
 
         [JsonProperty("icon")]
-        public PrecipType Icon { get; set; }
+        public string Icon { get; set; } //PrecipType not string
 
         [JsonProperty("data")]
         public List<DailyDatum> Data { get; set; }
@@ -145,7 +145,7 @@ namespace beach_day.Models
         public double PrecipProbability { get; set; }
 
         [JsonProperty("precipType")]
-        public PrecipType PrecipType { get; set; }
+        public string PrecipType { get; set; } //PrecipType not string
 
         [JsonProperty("temperatureHigh")]
         public double TemperatureHigh { get; set; }

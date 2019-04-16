@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using beach_day.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Collections.ObjectModel;
 
 namespace beach_day
 {
@@ -30,13 +31,16 @@ namespace beach_day
             DarkSkyForecast weatherForcastData = new DarkSkyForecast();
 
             var response = await client.GetAsync(uri);
-            if(response.IsSuccessStatusCode)
+            if(!response.IsSuccessStatusCode)
             {
-                var jsonWeatherContent = await response.Content.ReadAsStringAsync();
-                weatherForcastData = JsonConvert.DeserializeObject<DarkSkyForecast>(jsonWeatherContent); //weatherForcastData is now a C# object containg our weather data
+                await DisplayAlert("Error", "Could Not get weather data :(", "OK");
             }
             else {
-                await DisplayAlert("Error", "Could Not get weather data", "OK");
+                var jsonWeatherContent = await response.Content.ReadAsStringAsync();
+                weatherForcastData = JsonConvert.DeserializeObject<DarkSkyForecast>(jsonWeatherContent); //weatherForcastData is now a C# object containg our weather data
+                                                                                                         //now take out the Daily (8 days) of data out of this single object and put these 7 objects into a list and then into an observable collection
+                ObservableCollection<DailyDatum> weatherCollection = new ObservableCollection<DailyDatum>(weatherForcastData.Daily.Data);
+                WeatherList.ItemsSource = weatherCollection; //assigns the observable collection to the listview
             }
 
         }

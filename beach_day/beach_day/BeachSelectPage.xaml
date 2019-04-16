@@ -7,10 +7,24 @@
             <Label Text="This page will let user select a beach from SQLite, 
                    grab its lat/lng, then display the weather for 1 week.  
                    Then the user can click to launch google maps."
-                VerticalOptions="CenterAndExpand" 
+                VerticalOptions="Start" 
                 HorizontalOptions="CenterAndExpand" />
 
-            <Button Text="Display Weather Location" HeightRequest="30" FontSize="7" Clicked="Beach_SelectionButton_Clicked"></Button>
+            <ListView x:Name="WeatherList">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout>
+                                    <Label Text="{Binding Time}"></Label>
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>  
+            </ListView>
+            
+            <Button Text="Display Weather Location" HeightRequest="50" FontSize="9" Clicked="Beach_SelectionButton_Clicked"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
