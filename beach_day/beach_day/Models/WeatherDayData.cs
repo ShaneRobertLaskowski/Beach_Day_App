@@ -16,7 +16,7 @@ namespace beach_day.Models
         public double TemperatureHigh { get; set; }
         public string TemperatureHighTime { get; set; }
         public double TemperatureLow { get; set; }
-        public long TemperatureLowTime { get; set; }
+        public string TemperatureLowTime { get; set; }
         public double WindSpeed { get; set; }
         public long UvIndex { get; set; }
         public string Summary { get; set; } //tells us if its sunny or overcast
