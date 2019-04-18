@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="beach_day.BeachSelectPage">
+             x:Class="beach_day.BeachSelectPage"
+             Appearing="ContentPage_Appearing">
     <ContentPage.Content>
+        
         <StackLayout>
-            <Label Text="This page will let user select a beach from SQLite, 
-                   grab its lat/lng, then display the weather for 1 week.  
-                   Then the user can click to launch google maps."
-                VerticalOptions="Start" 
-                HorizontalOptions="CenterAndExpand" />
+
+            <Picker x:Name="BeachPicker" Title="Select A Beach..." 
+                    SelectedIndexChanged="Beach_SelectionButton_Clicked"
+                    ItemDisplayBinding ="{Binding Name}">
+            </Picker>
 
             <ListView x:Name="WeatherList" RowHeight="250">
                 <ListView.ItemTemplate>
@@ -29,10 +31,9 @@
                             </ViewCell.View>
                         </ViewCell>
                     </DataTemplate>
-                </ListView.ItemTemplate>  
+                </ListView.ItemTemplate>
             </ListView>
-            
-            <Button Text="Display Weather Location" HeightRequest="50" FontSize="9" Clicked="Beach_SelectionButton_Clicked"></Button>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

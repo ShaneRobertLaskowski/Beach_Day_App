@@ -90,6 +90,27 @@ namespace beach_day
             return weatherList;
         }
 
+        //binds a list of BeachPlace objects to the Picker
+        private void ContentPage_Appearing(object sender, EventArgs e)
+        {
 
+            BeachPlace beach1 = new BeachPlace { Name = "North Carlsbad Beach", Latitude = 33.163404, Longitude = -117.358215 };
+            BeachPlace beach2 = new BeachPlace { Name = "Oceanside Beach", Latitude = 33.194088, Longitude = -117.384206 };
+            BeachPlace beach3 = new BeachPlace { Name = "Moonlight Beach", Latitude = 33.047734, Longitude = -117.297918 };
+            BeachPlace beach4 = new BeachPlace { Name = "Swami's Beach", Latitude = 33.034890, Longitude = -117.292385 };
+            BeachPlace beach5 = new BeachPlace { Name = "San Elijo Beach", Latitude = 33.021370, Longitude = -117.284242 };
+            BeachPlace beach6 = new BeachPlace { Name = "Coronado Beach", Latitude = 32.686282, Longitude = -117.191942 };
+            BeachPlace beach7 = new BeachPlace { Name = "Ocean Beach", Latitude = 32.750567, Longitude = -117.252592 };
+
+
+            List<BeachPlace> beaches = new List<BeachPlace>
+            {
+                beach1, beach2, beach3, beach4, beach5, beach6, beach7
+            };
+
+            
+            BeachPicker.ItemsSource = new ObservableCollection<BeachPlace>(beaches);
+
+        }
     }
 }
