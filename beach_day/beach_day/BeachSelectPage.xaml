@@ -8,7 +8,7 @@
         <StackLayout>
 
             <Picker x:Name="BeachPicker" Title="Select A Beach..." 
-                    SelectedIndexChanged="Beach_SelectionButton_Clicked"
+                    SelectedIndexChanged="Beach_Picked"
                     ItemDisplayBinding ="{Binding Name}">
             </Picker>
 

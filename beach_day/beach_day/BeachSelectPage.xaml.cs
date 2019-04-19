@@ -20,8 +20,12 @@ namespace beach_day
 			InitializeComponent ();
 		}
 
-        async void Beach_SelectionButton_Clicked(object sender, EventArgs e)
+        async void Beach_Picked(object sender, EventArgs e)
         {
+
+            var beachSelected = (BeachPlace)(((Picker)sender).SelectedItem);
+            var selectedlat = beachSelected.Latitude;
+            var selectedlng = beachSelected.Longitude;
             //https://api.darksky.net/forecast/5ee647fd1cf5f4f33a5ee6ecbcd904db/37.8267,-122.4233
             var client = new HttpClient();
             var lat = "37.8267";
