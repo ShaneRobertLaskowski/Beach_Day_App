@@ -24,6 +24,11 @@
                             VerticalOptions="CenterAndExpand"
                             HorizontalOptions="Center"
                             Clicked="BeachFacts_Creation_Button" />
+                    
+                    <Button Text="Even Tan Tool"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="Center"/>
+                    
                     <Button Text="About"
                             VerticalOptions="CenterAndExpand"
                             HorizontalOptions="Center"

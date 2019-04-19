@@ -15,6 +15,8 @@ namespace beach_day
             MainPage = new MainPage();
         }
 
+        //this code block creates our cross-platform SQLite database instance if its not already created
+        //because its static the app will only have to open and close 1 connection for our app's entire use of it.
         static ItemListDatabase itemDatabase;
         public static ItemListDatabase ItemDatabaseInstance
         {

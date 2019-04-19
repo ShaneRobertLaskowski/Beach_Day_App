@@ -5,11 +5,11 @@ using SQLite;
 
 namespace beach_day
 {
-    class ChecklistItemModel
+    public class ChecklistItemModel
     {
         [PrimaryKey]
         public string Name { get; set; }
         [AutoIncrement]
-        public string ID { get; set; }
+        public int ID { get; set; }
     }
 }
