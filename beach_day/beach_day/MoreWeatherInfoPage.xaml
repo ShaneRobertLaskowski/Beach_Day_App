@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="beach_day.MoreWeatherInfoPage">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand">
+
+            <Label Text="{Binding Day}" HorizontalOptions="Center"></Label>
+            <Label Text="{Binding Month}"></Label>
+            <Label Text="{Binding TemperatureHigh}"></Label>
+            <Label Text="{Binding TemperatureHighTime}"></Label>
+            <Label Text="{Binding TemperatureLow}"></Label>
+            <Label Text="{Binding TemperatureLowTime}"></Label>
+            <Label Text="{Binding WindSpeed}"></Label>
+            <Label Text="{Binding UvIndex}"></Label>
+            <Label Text="{Binding Summary}"></Label>
+
+            <Button Clicked="Button_Clicked" Text="Go Back"></Button>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

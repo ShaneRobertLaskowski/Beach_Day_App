@@ -4,7 +4,7 @@ using System.Text;
 
 namespace beach_day.Models
 {
-    class WeatherDayData
+    public class WeatherDayData
     {
 
         //add in properties that you want from a DailyDatum object

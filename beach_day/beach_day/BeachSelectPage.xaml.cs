@@ -18,7 +18,8 @@ namespace beach_day
 		public BeachSelectPage ()
 		{
 			InitializeComponent ();
-		}
+
+        }
 
         async void Beach_Picked(object sender, EventArgs e)
         {
@@ -113,6 +114,14 @@ namespace beach_day
             
             BeachPicker.ItemsSource = new ObservableCollection<BeachPlace>(beaches);
 
+        }
+
+        async void MenuItem_MoreInfo_Clicked(object sender, EventArgs e)
+        {
+            var menuItem = (MenuItem)sender;
+            var weatherDataSet = (WeatherDayData)menuItem.CommandParameter;
+            //Navigation.PushModalAsync(new MoreWeatherInfoPage(weatherDataSet));
+            await Navigation.PushAsync(new MoreWeatherInfoPage(weatherDataSet));
         }
     }
 }

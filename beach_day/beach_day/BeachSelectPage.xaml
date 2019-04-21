@@ -12,20 +12,19 @@
                     ItemDisplayBinding ="{Binding Name}">
             </Picker>
 
-            <ListView x:Name="WeatherList" RowHeight="250">
+            <ListView x:Name="WeatherList" RowHeight="150">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="More Info" Clicked="MenuItem_MoreInfo_Clicked"  CommandParameter="{Binding .}" />
+                            </ViewCell.ContextActions>
                             <ViewCell.View>
                                 <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical">
                                     <Label Text="{Binding Day}"></Label>
                                     <Label Text="{Binding Month}"></Label>
                                     <Label Text="{Binding TemperatureHigh}"></Label>
-                                    <Label Text="{Binding TemperatureHighTime}"></Label>
                                     <Label Text="{Binding TemperatureLow}"></Label>
-                                    <Label Text="{Binding TemperatureLowTime}"></Label>
-                                    <Label Text="{Binding WindSpeed}"></Label>
-                                    <Label Text="{Binding UvIndex}"></Label>
                                     <Label Text="{Binding Summary}"></Label>
                                 </StackLayout>
                             </ViewCell.View>
