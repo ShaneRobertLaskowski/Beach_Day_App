@@ -12,6 +12,9 @@
                    FontSize="40" 
                    HorizontalOptions="Center" 
                    VerticalOptions="CenterAndExpand"/>
+            <Label Text="By Shane Laskowski" TextColor="#000"
+                   FontSize="Large" HorizontalOptions="Center" 
+                   VerticalOptions="CenterAndExpand"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

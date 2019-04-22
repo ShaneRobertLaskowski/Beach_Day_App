@@ -9,6 +9,7 @@ using beach_day.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.Collections.ObjectModel;
+using Xamarin.Essentials;
 
 namespace beach_day
 {
@@ -127,6 +128,29 @@ namespace beach_day
             var weatherDataSet = (WeatherDayData)menuItem.CommandParameter;
             //Navigation.PushModalAsync(new MoreWeatherInfoPage(weatherDataSet));
             await Navigation.PushAsync(new MoreWeatherInfoPage(weatherDataSet));
+        }
+
+        public async void DisplayDirections(object sender, EventArgs e)
+        {
+
+            if ((BeachPlace)BeachPicker.SelectedItem == null)
+            {
+                await DisplayAlert("Error", "You did not select a beach", "OK");
+                return;
+            }
+            BeachPlace userSelectedBeach = (BeachPlace)BeachPicker.SelectedItem;
+
+            //grab the beachplace from picker, if null return, else pass it into the LaunchGoogleMapsDirections(...)
+            await LaunchGoogleMapsDirections(userSelectedBeach);
+        }
+
+        public async Task LaunchGoogleMapsDirections(BeachPlace userSelectedBeach)
+        {
+
+            var location = new Location(userSelectedBeach.Latitude, userSelectedBeach.Longitude);
+            var options = new MapLaunchOptions { NavigationMode = NavigationMode.Driving, Name = userSelectedBeach.Name };
+
+            await Map.OpenAsync(location, options);
         }
     }
 }

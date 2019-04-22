@@ -5,33 +5,47 @@
     
     <ContentPage.Content>
         
-        <StackLayout>
+        <StackLayout Padding="6">
 
             <Picker x:Name="BeachPicker" Title="Select A Beach..." 
                     SelectedIndexChanged="Beach_Picked"
                     ItemDisplayBinding ="{Binding Name}">
             </Picker>
 
-            <ListView x:Name="WeatherList" RowHeight="150">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.ContextActions>
-                                <MenuItem Text="More Info" Clicked="MenuItem_MoreInfo_Clicked"  CommandParameter="{Binding .}" />
-                            </ViewCell.ContextActions>
-                            <ViewCell.View>
-                                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical">
-                                    <Label Text="{Binding Day}"></Label>
-                                    <Label Text="{Binding Month}"></Label>
-                                    <Label Text="{Binding TemperatureHigh}"></Label>
-                                    <Label Text="{Binding TemperatureLow}"></Label>
-                                    <Label Text="{Binding Summary}"></Label>
-                                </StackLayout>
-                            </ViewCell.View>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <Image Source="poweredbyoneline.png"
+                   VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="Center"
+                   WidthRequest="200" HeightRequest="50"/>
+            <RelativeLayout HeightRequest="150">
+                <ListView x:Name="WeatherList" RowHeight="150" Rotation="270" SeparatorVisibility="None"
+                          RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-75}"
+                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.5, Constant=75}"
+                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=Constant, Constant=150}"
+                          RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                          CachingStrategy="RecycleElement">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="More Info" Clicked="MenuItem_MoreInfo_Clicked"  CommandParameter="{Binding .}" />
+                                </ViewCell.ContextActions>
+                                <ContentView Rotation="90">
+                                    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical">
+                                        <Label Text="{Binding Day}"></Label>
+                                        <Label Text="{Binding Month}"></Label>
+                                        <Label Text="{Binding TemperatureHigh}"></Label>
+                                        <Label Text="{Binding TemperatureLow}"></Label>
+                                        <Label Text="{Binding Summary}"></Label>
+                                    </StackLayout>
+                                </ContentView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </RelativeLayout>
+
+            <Button Text="Get Directions" VerticalOptions="Center" 
+                    HorizontalOptions="Center" Clicked="DisplayDirections"/>
 
         </StackLayout>
     </ContentPage.Content>
