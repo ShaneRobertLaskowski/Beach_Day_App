@@ -12,7 +12,7 @@ namespace beach_day
         public MainPage()
         {
             InitializeComponent();
-            Detail = new NavigationPage(new BeachSelectPage()); //change this the first page you want the user to see
+            Detail = new NavigationPage(new SplashPage()); //change this the first page you want the user to see
 
         }
 
