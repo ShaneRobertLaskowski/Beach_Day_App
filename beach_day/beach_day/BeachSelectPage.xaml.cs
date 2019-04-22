@@ -18,11 +18,15 @@ namespace beach_day
 		public BeachSelectPage ()
 		{
 			InitializeComponent ();
+            PopulateBeachListView();
 
         }
 
         async void Beach_Picked(object sender, EventArgs e)
         {
+            //quick and dirty fix... To do: don't invoke this with function on the Appearing event, call it after InitializeComponent()
+            if ((BeachPlace)(((Picker)sender).SelectedItem) == null)
+                return;
 
             var beachSelected = (BeachPlace)(((Picker)sender).SelectedItem);
             var lat = beachSelected.Latitude.ToString();
@@ -94,7 +98,8 @@ namespace beach_day
         }
 
         //binds a list of BeachPlace objects to the Picker
-        private void ContentPage_Appearing(object sender, EventArgs e)
+        //DONT call this after the Appearing event
+        private void PopulateBeachListView()
         {
 
             BeachPlace beach1 = new BeachPlace { Name = "North Carlsbad Beach", Latitude = 33.163404, Longitude = -117.358215 };
