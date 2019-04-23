@@ -31,8 +31,8 @@
 
         </StackLayout>
     </ContentPage.Content>
-    <ContentPage.ToolbarItems>
+    <!--<ContentPage.ToolbarItems>
         <ToolbarItem Text="Howdy!"></ToolbarItem>
     </ContentPage.ToolbarItems>
-    
+    -->
 </ContentPage>

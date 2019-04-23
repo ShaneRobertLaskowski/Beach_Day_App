@@ -4,23 +4,47 @@
              x:Class="beach_day.BeachSelectPage">
     
     <ContentPage.Content>
-        
-        <StackLayout Padding="6">
+
+        <Grid ColumnSpacing="0" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="1.5*" />
+            </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
 
             <Picker x:Name="BeachPicker" Title="Select A Beach..." 
                     SelectedIndexChanged="Beach_Picked"
-                    ItemDisplayBinding ="{Binding Name}">
+                    ItemDisplayBinding ="{Binding Name}"
+                    Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
             </Picker>
 
+            <Button Text="Get Directions" VerticalOptions="Center" 
+                    HorizontalOptions="Center" Clicked="DisplayDirections"
+                    Grid.Column="2" Grid.Row="0"/>
+
             <Image Source="poweredbyoneline.png"
-                   VerticalOptions="CenterAndExpand" 
-                   HorizontalOptions="Center"
-                   WidthRequest="200" HeightRequest="50"/>
-            <RelativeLayout HeightRequest="150">
-                <ListView x:Name="WeatherList" RowHeight="150" Rotation="270" SeparatorVisibility="None"
-                          RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-75}"
-                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.5, Constant=75}"
-                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=Constant, Constant=150}"
+                   VerticalOptions="End" 
+                   HorizontalOptions="End"
+                   WidthRequest="200" HeightRequest="50"
+                   Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+            <BoxView x:Name = "WeatherBox" Color="#FF3399" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3"/>
+            <ActivityIndicator x:Name="QueryingWeatherIndicator" Color="#000" IsRunning="False" 
+                               VerticalOptions="End" Grid.Column="1" Grid.Row="2"/>
+
+            <RelativeLayout HeightRequest="175"
+                            Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" VerticalOptions="End">
+                <ListView x:Name="WeatherList" RowHeight="175" Rotation="270" SeparatorVisibility="None" Margin="0,5,0,5"
+                          RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-87}"
+                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.5, Constant=87}"
+                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=Constant, Constant=175}"
                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                           CachingStrategy="RecycleElement">
                     <ListView.ItemTemplate>
@@ -44,9 +68,12 @@
                 </ListView>
             </RelativeLayout>
 
-            <Button Text="Get Directions" VerticalOptions="Center" 
-                    HorizontalOptions="Center" Clicked="DisplayDirections"/>
 
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add Beach"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
 </ContentPage>

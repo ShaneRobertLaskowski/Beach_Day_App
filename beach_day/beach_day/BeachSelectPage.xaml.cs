@@ -28,6 +28,7 @@ namespace beach_day
             //quick and dirty fix... To do: don't invoke this with function on the Appearing event, call it after InitializeComponent()
             if ((BeachPlace)(((Picker)sender).SelectedItem) == null)
                 return;
+            QueryingWeatherIndicator.IsRunning = true;
 
             var beachSelected = (BeachPlace)(((Picker)sender).SelectedItem);
             var lat = beachSelected.Latitude.ToString();
@@ -58,7 +59,7 @@ namespace beach_day
                 WeatherList.ItemsSource = weatherCollection; //assigns the observable collection to the listview
 
             }
-
+            QueryingWeatherIndicator.IsRunning = false;
         }
         List<WeatherDayData> DailyDatumToWeatherDayDataExtraction(List<DailyDatum> rawWeatherData)
         {
