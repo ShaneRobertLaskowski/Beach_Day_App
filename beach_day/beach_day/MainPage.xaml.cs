@@ -36,5 +36,10 @@ namespace beach_day
             Detail = new NavigationPage(new About());
             IsPresented = false;
         }
+        private void TanningToolPage_Creation_Button(object sender, EventArgs e)
+        {
+            Detail = new NavigationPage(new TanningToolPage());
+            IsPresented = false;
+        }
     }
 }

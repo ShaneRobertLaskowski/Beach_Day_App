@@ -7,9 +7,11 @@ namespace beach_day
 {
     public class ChecklistItemModel
     {
-        [PrimaryKey]
+        [Unique]
         public string Name { get; set; }
-        [AutoIncrement]
+        [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
+
+
     }
 }

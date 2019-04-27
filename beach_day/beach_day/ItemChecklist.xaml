@@ -5,7 +5,7 @@
     <ContentPage.Content>
         <StackLayout Padding="6">
 
-            <Label Text="Welcome to the Item Checklist!"
+            <Label Text="Your Checklist" FontSize="Large" FontAttributes="Bold"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"/>
 

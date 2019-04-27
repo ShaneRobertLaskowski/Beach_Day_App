@@ -20,8 +20,7 @@ namespace beach_day
         public Task<int> SaveItemAsync(ChecklistItemModel item)
         {
             //*****need to run query to check if item.Name already in DB, use if else or maybe try-catch
-            return itemListDatabase.InsertAsync(item);
-
+            return itemListDatabase.InsertAsync(item); //Code explodes with "Contraint" exception
         }
 
         public Task<List<ChecklistItemModel>> GetAllChecklistItems()
@@ -32,6 +31,17 @@ namespace beach_day
         public Task<int> DeleteItemAsync(ChecklistItemModel item)
         {
             return itemListDatabase.DeleteAsync(item);
+        }
+
+
+        //need to debug
+        public Task<List<ChecklistItemModel>> GetItemWithName(string itemName)
+        {
+            //var table = (TableMapping)itemListDatabase.TableMappings; //grabs the currenlty understood table (i hope its the right one!)
+            string query = "SELECT * FROM [ChecklistItemModel] WHERE [Name] = \"" + itemName + "\"";
+
+            return itemListDatabase.QueryAsync<ChecklistItemModel>(query);
+
         }
 
     }
