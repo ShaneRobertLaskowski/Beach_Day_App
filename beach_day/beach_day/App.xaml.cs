@@ -3,6 +3,10 @@ using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace beach_day
 {
@@ -34,6 +38,9 @@ namespace beach_day
         protected override void OnStart()
         {
             // Handle when your app starts
+
+            //place other "app secrets" here 
+            AppCenter.Start("android=1d382a07-2b8f-4eb0-aac6-cb70a4d5b80e;", typeof(Analytics), typeof(Crashes));
 
         }
 

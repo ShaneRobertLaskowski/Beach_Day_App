@@ -39,7 +39,7 @@ namespace beach_day
             var uri = new Uri(weatherRequestURL);
             DarkSkyForecast weatherForcastData = new DarkSkyForecast();
 
-            var response = await client.GetAsync(uri);
+            var response = await client.GetAsync(uri); //Wrap custom failure reporting (try/catch + analytics) around this
             if(!response.IsSuccessStatusCode)
             {
                 await DisplayAlert("Error", "Could Not get weather data :(", "OK");
@@ -100,7 +100,6 @@ namespace beach_day
         }
 
         //binds a list of BeachPlace objects to the Picker
-        //DONT call this after the Appearing event
         private void PopulateBeachListView()
         {
 
@@ -112,13 +111,10 @@ namespace beach_day
             BeachPlace beach6 = new BeachPlace { Name = "Coronado Beach", Latitude = 32.686282, Longitude = -117.191942 };
             BeachPlace beach7 = new BeachPlace { Name = "Ocean Beach", Latitude = 32.750567, Longitude = -117.252592 };
 
-
             List<BeachPlace> beaches = new List<BeachPlace>
             {
                 beach1, beach2, beach3, beach4, beach5, beach6, beach7
             };
-
-            
             BeachPicker.ItemsSource = new ObservableCollection<BeachPlace>(beaches);
 
         }
@@ -127,7 +123,6 @@ namespace beach_day
         {
             var menuItem = (MenuItem)sender;
             var weatherDataSet = (WeatherDayData)menuItem.CommandParameter;
-            //Navigation.PushModalAsync(new MoreWeatherInfoPage(weatherDataSet));
             await Navigation.PushAsync(new MoreWeatherInfoPage(weatherDataSet));
         }
 

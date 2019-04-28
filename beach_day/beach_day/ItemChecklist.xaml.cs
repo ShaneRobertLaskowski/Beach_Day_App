@@ -32,45 +32,8 @@ namespace beach_day
 
         private async void Populate_CheckList() //make this async if adding in database functionality (it has tasks to be awaited)
         {
-            /*
-            var item1 = new ChecklistItemModel { Name = "SunScreen", ID = 1 };
-            var item2 = new ChecklistItemModel { Name = "Towel", ID = 2 };
-            var item3 = new ChecklistItemModel { Name = "Umbrella", ID = 3 };
-            var item4 = new ChecklistItemModel { Name = "Volley Ball", ID = 4 };
-            var item5 = new ChecklistItemModel { Name = "Flip Flops", ID = 5 };
-            var item6 = new ChecklistItemModel { Name = "Water", ID = 6 };
-            var item7 = new ChecklistItemModel { Name = "LunchBox", ID = 7 };
-            */
-
-            //run query to get checklist List, pass it to ObservableCollection, assign that the ViewList
-            //***********TEST*************            
-            var allItems = await App.ItemDatabaseInstance.GetAllChecklistItems();
-
-            /*var itemResult = await App.ItemDatabaseInstance.GetItemWithName("cat"); //*****when an item with same name as this isn't in the DB, the app tosses "Constraint" exception
-            if (itemResult.Count != 0)
-            {
-                //item found --> can't add in item
-
-                var testInt = 2 + 2;
-                //this alert is never displayed
-                DisplayAlert("Error","Item Already Added to List","OK");  //if this is awaited then viewlist is never initialized
-            }
-            else
-            {
-                //There is no item that has this name --> create a CheckListItemModel and insert it into the DB
-                var userNewItem = new ChecklistItemModel {Name = "cat" }; //*************************** there is already a "dog" record in DB, but the Name column is UNIQUE, ==> "constraint" exception thrown
-
-                int ItemId = await App.ItemDatabaseInstance.SaveItemAsync(userNewItem);
-            }
-            */
            
-            /*
-            List<ChecklistItemModel> testItemList = new List<ChecklistItemModel>
-            {
-                item1, item2, item3, item4, item5, item6, item7
-            };
-            // ObservableCollection<ChecklistItemModel> items = new ObservableCollection<ChecklistItemModel>(testItemList);
-            */
+            var allItems = await App.ItemDatabaseInstance.GetAllChecklistItems();
             items = new ObservableCollection<ChecklistItemModel>(allItems); //testItemList
             ItemViewList.ItemsSource = items;
        
@@ -82,29 +45,32 @@ namespace beach_day
 
             //grab the Text content of the Entry
             var userItem = UserItemInput.Text;
-            var itemResult = await App.ItemDatabaseInstance.GetItemWithName(userItem); //*****when an item with same name as this isn't in the DB, the app tosses "Constraint" exception
+
+            if(string.IsNullOrWhiteSpace(userItem))
+            {
+                await DisplayAlert("Error", "Input cannot be empty", "OK");
+                Clear_Entry_Field(UserItemInput);
+                return;
+            }
+
+            //check DB for any instances of items with same name as userItem's value
+            var itemResult = await App.ItemDatabaseInstance.GetItemWithName(userItem); 
 
             if (itemResult.Count != 0)
             {
-                //item found --> can't add in item
-                var testInt = 2 + 2;
-                await DisplayAlert("Error", "Item Already Added to List", "OK");  //if this is awaited then viewlist is never initialized
+                //item found --> can't add item to DB
+                await DisplayAlert("Error", "Item Already Added to List", "OK");
             }
             else
             {
                 //There is no item that has this name --> create a CheckListItemModel and insert it into the DB
-                var userNewItem = new ChecklistItemModel { Name = userItem, ID = 0 };
+                //ID is set to 0, this lets SQLite's autoincrement contraint "know" that it needs to be modified to proper value
+                var userNewItem = new ChecklistItemModel { Name = userItem, ID = 0 }; 
                 int ItemId = await App.ItemDatabaseInstance.SaveItemAsync(userNewItem);
                 items.Insert(0, userNewItem);
-                Clear_Entry_Field();
+                Clear_Entry_Field(UserItemInput);
 
             }
-
-
-            //update the observable collection by grabbing the listView's itemsource and appending a new CheckListItem with Name property equal to the Text value passed
-            //var newItem = new ChecklistItemModel { Name = userItem, ID = 0 };
-            //items.Insert(0, newItem);
-            //Clear_Entry_Field();
         }
 
         //deletes the item passed via command parameter from the observable collection, which reflects in the displayed viewlist, and deletes from the DB too
@@ -116,9 +82,10 @@ namespace beach_day
             var ItemId = await App.ItemDatabaseInstance.DeleteItemAsync(item);
         }
 
-        private void Clear_Entry_Field()
+
+        private void Clear_Entry_Field(Entry e)
         {
-            UserItemInput.Text = "";
+            e.Text = "";
         }
     }
 }
