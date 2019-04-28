@@ -11,6 +11,10 @@ using Xamarin.Forms.Xaml;
 using System.Collections.ObjectModel;
 using Xamarin.Essentials;
 
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+
 namespace beach_day
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
@@ -39,21 +43,34 @@ namespace beach_day
             var uri = new Uri(weatherRequestURL);
             DarkSkyForecast weatherForcastData = new DarkSkyForecast();
 
-            var response = await client.GetAsync(uri); //Wrap custom failure reporting (try/catch + analytics) around this
+            HttpResponseMessage response;
+            try
+            {
+                response = await client.GetAsync(uri); //Wrap custom failure reporting (try/catch + analytics) around this
+            }
+            catch(Exception networkException)
+            {
+                Crashes.TrackError(networkException);
+                QueryingWeatherIndicator.IsRunning = false; //id use this in a finally, but this should occur after the code blocks below
+                await DisplayAlert("Error","Failed to retrieve Weather Data: " + networkException.Message, "OK");
+                return;
+            }
+
             if(!response.IsSuccessStatusCode)
             {
                 await DisplayAlert("Error", "Could Not get weather data :(", "OK");
             }
             else {
+                Analytics.TrackEvent("DarkSky API called");
+
                 var jsonWeatherContent = await response.Content.ReadAsStringAsync();
                 weatherForcastData = JsonConvert.DeserializeObject<DarkSkyForecast>(jsonWeatherContent); //weatherForcastData is now a C# object containg our weather data
-                                                                                                         //now take out the Daily (8 days) of data out of this single object and put these 7 objects into a list and then into an observable collection
 
-                List<DailyDatum> rawDailyWeatherData = weatherForcastData.Daily.Data;
+                List<DailyDatum> rawDailyWeatherData = weatherForcastData.Daily.Data;  //grabs next 7 days' + today's weather data and stores in a List
 
-                List<WeatherDayData> salientDailyWeatherList = DailyDatumToWeatherDayDataExtraction(rawDailyWeatherData);
-                //ObservableCollection<DailyDatum> weatherCollection = new ObservableCollection<DailyDatum>(weatherForcastData.Daily.Data);
-                //WeatherList.ItemsSource = weatherCollection; //assigns the observable collection to the listview
+                List<WeatherDayData> salientDailyWeatherList = DailyDatumToWeatherDayDataExtraction(rawDailyWeatherData);  //filter out the salient data and put into new list of type WeatherDayData
+
+                //need to remove the 1st List item (if list is not empty) and place its content in the "Today" labelling section of the .xaml
 
                 ObservableCollection<WeatherDayData> weatherCollection = new ObservableCollection<WeatherDayData>(salientDailyWeatherList);
                 WeatherList.ItemsSource = weatherCollection; //assigns the observable collection to the listview
