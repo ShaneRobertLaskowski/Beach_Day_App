@@ -21,32 +21,26 @@
                     </Grid.RowDefinitions>
                     <!-- #000066	#E0F4FF	#FFFFFF	#FFCC00 -->
                     <Label Text="Beach Day" 
-                           HorizontalOptions="Center" VerticalOptions="CenterAndExpand" 
-                           FontSize="Large"
+                           Style="{StaticResource LabelPageHeading1}" 
                            Grid.Row="0"/>
                     <Button Text="Beach Selection"
-                            VerticalOptions="CenterAndExpand"
-                            HorizontalOptions="Center"
+                            Style="{StaticResource DefaultButton1}"
                             Clicked="BeachSelect_Creation_Button" 
                             Grid.Row="1"/>
                     <Button Text="Item Checklist"
-                            VerticalOptions="CenterAndExpand"
-                            HorizontalOptions="Center"
+                            Style="{StaticResource DefaultButton1}"
                             Clicked="BeachItemChecklist_Creation_Button" 
                             Grid.Row="2"/>
-                    <Button Text="Beach Facts"
-                            VerticalOptions="CenterAndExpand"
-                            HorizontalOptions="Center"
-                            Clicked="BeachFacts_Creation_Button" 
-                            Grid.Row="3"/>
                     <Button Text="Tanning Tool"
-                            VerticalOptions="CenterAndExpand"
-                            HorizontalOptions="Center"
+                            Style="{StaticResource DefaultButton1}"
                             Clicked="TanningToolPage_Creation_Button"
-                            Grid.Row="4" />
+                            Grid.Row="3" />
+                    <Button Text="Beach Facts"
+                            Style="{StaticResource DefaultButton1}"
+                            Clicked="BeachFacts_Creation_Button" 
+                            Grid.Row="4"/>
                     <Button Text="About"
-                            VerticalOptions="CenterAndExpand"
-                            HorizontalOptions="Center"
+                            Style="{StaticResource DefaultButton1}"
                             Clicked ="About_Creation_Button" 
                             Grid.Row="5"/>
                     <Image Source="beachDayLogo.png"

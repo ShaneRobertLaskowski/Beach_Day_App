@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+
 namespace beach_day
 {
     public partial class MainPage : MasterDetailPage
@@ -30,11 +34,13 @@ namespace beach_day
         {
             Detail = new NavigationPage(new BeachFacts());
             IsPresented = false;
+            Analytics.TrackEvent("Visited Beach Facts Page");
         }
         private void About_Creation_Button(object sender, EventArgs e)
         {
             Detail = new NavigationPage(new About());
             IsPresented = false;
+            Analytics.TrackEvent("Visited About Page");
         }
         private void TanningToolPage_Creation_Button(object sender, EventArgs e)
         {

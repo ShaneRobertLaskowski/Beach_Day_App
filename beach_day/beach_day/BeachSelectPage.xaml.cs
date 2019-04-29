@@ -72,6 +72,16 @@ namespace beach_day
 
                 //need to remove the 1st List item (if list is not empty) and place its content in the "Today" labelling section of the .xaml
 
+                TodayLabelSection.BindingContext = salientDailyWeatherList[0];
+
+                /*HighTempLabel.BindingContext = salientDailyWeatherList[0].TemperatureHigh.ToString();
+                LowTempLabel.BindingContext = salientDailyWeatherList[0].TemperatureLow.ToString();
+                WindSpeedLabel.BindingContext = salientDailyWeatherList[0].WindSpeed.ToString();
+                UVIndexLabel.BindingContext = salientDailyWeatherList[0].UvIndex.ToString();
+                DescriptionLabel.BindingContext = salientDailyWeatherList[0].Summary;
+                */
+                salientDailyWeatherList.RemoveAt(0);// removes the first weather day data in this list
+
                 ObservableCollection<WeatherDayData> weatherCollection = new ObservableCollection<WeatherDayData>(salientDailyWeatherList);
                 WeatherList.ItemsSource = weatherCollection; //assigns the observable collection to the listview
 

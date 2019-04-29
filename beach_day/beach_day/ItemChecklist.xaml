@@ -3,13 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="beach_day.ItemChecklist">
     <ContentPage.Content>
-        <StackLayout Padding="6">
+        <Grid BackgroundColor="{StaticResource ThemeColor2}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Label Text="Checklist" Style="{StaticResource LabelPageHeading1}"
+                   Grid.Row="0" Grid.ColumnSpan="2"/>
 
-            <Label Text="Your Checklist" FontSize="Large" FontAttributes="Bold"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand"/>
-
-            <ListView x:Name="ItemViewList" RowHeight="50">
+            <ListView x:Name="ItemViewList" RowHeight="50" Grid.Row="1" Grid.ColumnSpan="2" 
+                      SeparatorColor="{StaticResource ThemeColor4}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -17,8 +26,10 @@
                                 <MenuItem Text="Delete" Clicked="MenuItem_Delete_Clicked"  CommandParameter="{Binding .}" IsDestructive="True"/>
                             </ViewCell.ContextActions>
                             <ViewCell.View>
-                                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical">
-                                    <Label Text="{Binding Name}" HorizontalOptions="Start"></Label>
+                                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical"
+                                             BackgroundColor="{StaticResource ThemeColor1}">
+                                    <Label Text="{Binding Name}" HorizontalOptions="Center" VerticalOptions="Center" 
+                                           TextColor="{StaticResource ThemeColor4}" FontSize="Large"/>
                                 </StackLayout>
                             </ViewCell.View>
                         </ViewCell>
@@ -26,10 +37,15 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Entry Placeholder="Add Item..." x:Name="UserItemInput"/>
-            <Button Text="Add To List" Clicked="Item_Added_Clicked"/>
+            <!--<BoxView BackgroundColor="Fuchsia" Grid.Row="2" Grid.Column="0"/> -->
+            <Entry Placeholder="Add Item..." x:Name="UserItemInput" VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="FillAndExpand" Grid.Row="2" Grid.Column="0"/>
 
-        </StackLayout>
+            <Button Text="Add To List" Clicked="Item_Added_Clicked" Style="{StaticResource DefaultButton1}"
+                    Grid.Row="2" Grid.Column="1"/>
+         
+
+        </Grid>
     </ContentPage.Content>
     <!--<ContentPage.ToolbarItems>
         <ToolbarItem Text="Howdy!"></ToolbarItem>

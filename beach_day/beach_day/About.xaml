@@ -4,9 +4,20 @@
              x:Class="beach_day.About">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to About Page!"
+            <Image Source="beachDayLogo.png" />
+
+            <Label Text="Created By: Shane Laskowski"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand" Style="{StaticResource LabelPageHeading1}"/>
+
+            <Label Text="Special thanks to Daniel Causer and Thomas Desmond"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" Style="{StaticResource LabelPageHeading1}"/>
+
+            <Label Text="This app uses the Dark Sky API to retrieve Weather Data"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" Style="{StaticResource LabelPageHeading1}"/>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
