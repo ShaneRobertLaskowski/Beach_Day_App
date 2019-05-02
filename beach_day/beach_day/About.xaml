@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="beach_day.About">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Margin="12">
             <Image Source="beachDayLogo.png" />
 
             <Label Text="Created By: Shane Laskowski"
@@ -11,11 +11,11 @@
                 HorizontalOptions="CenterAndExpand" Style="{StaticResource LabelPageHeading1}"/>
 
             <Label Text="Special thanks to Daniel Causer and Thomas Desmond"
-                VerticalOptions="CenterAndExpand" 
+                VerticalOptions="CenterAndExpand" FontSize="Medium"
                 HorizontalOptions="CenterAndExpand" Style="{StaticResource LabelPageHeading1}"/>
 
             <Label Text="This app uses the Dark Sky API to retrieve Weather Data"
-                VerticalOptions="CenterAndExpand" 
+                VerticalOptions="CenterAndExpand" FontSize="Medium"
                 HorizontalOptions="CenterAndExpand" Style="{StaticResource LabelPageHeading1}"/>
 
         </StackLayout>

@@ -97,6 +97,7 @@ namespace beach_day
             long unixTimeTempLow;
             string day;
             string month;
+            string formattedDate;
             string highTempTime;
             string lowTempTime;
             foreach (var rawDayData in rawWeatherData)
@@ -106,6 +107,7 @@ namespace beach_day
                 dateTime = dateTime.AddSeconds(unixTimeDay).ToLocalTime();
                 day = dateTime.ToString("ddd");
                 month = dateTime.ToString("MMM");
+                formattedDate = dateTime.ToString("dddd, MMMM dd");
 
                 unixTimeTempHigh = rawDayData.TemperatureHighTime;
                 dateTime = new System.DateTime(1970, 1, 1, 0, 0, 0, 0); //might want to just change the current value of the dateTime variable
@@ -117,7 +119,7 @@ namespace beach_day
                 dateTime = dateTime.AddSeconds(unixTimeTempLow).ToLocalTime(); //go from UTC to client's timezone (PST)
                 lowTempTime = dateTime.ToString("h:mm tt");
 
-                weatherList.Add(new WeatherDayData { Day = day, Month = month, TemperatureHigh = rawDayData.TemperatureHigh,
+                weatherList.Add(new WeatherDayData { Day = day, Month = month, DateFormatted = formattedDate, TemperatureHigh = rawDayData.TemperatureHigh,
                     TemperatureHighTime = highTempTime, TemperatureLow = rawDayData.TemperatureLow, TemperatureLowTime = lowTempTime, 
                     WindSpeed = rawDayData.WindSpeed, UvIndex = rawDayData.UvIndex, Summary = rawDayData.Summary });
 

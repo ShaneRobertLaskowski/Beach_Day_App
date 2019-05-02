@@ -3,20 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="beach_day.MoreWeatherInfoPage">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="CenterAndExpand">
+        <Grid BackgroundColor="{StaticResource ThemeColor2}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-            <Label Text="{Binding Day}" HorizontalOptions="Center"></Label>
-            <Label Text="{Binding Month}"></Label>
-            <Label Text="{Binding TemperatureHigh}"></Label>
-            <Label Text="{Binding TemperatureHighTime}"></Label>
-            <Label Text="{Binding TemperatureLow}"></Label>
-            <Label Text="{Binding TemperatureLowTime}"></Label>
-            <Label Text="{Binding WindSpeed}"></Label>
-            <Label Text="{Binding UvIndex}"></Label>
-            <Label Text="{Binding Summary}"></Label>
 
-            <Button Clicked="Button_Clicked" Text="Go Back"></Button>
-            
-        </StackLayout>
+            <Label Text="{Binding DateFormatted}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large" 
+                   FontAttributes="Bold" Grid.Row="0" Grid.ColumnSpan="3" TextColor="{StaticResource ThemeColor1}"/>
+            <Label Text="{Binding TemperatureHigh, StringFormat='High: {0:N}&#186;F'}" FontSize="Medium" 
+                   Grid.Row="1" Grid.ColumnSpan="2" TextColor="{StaticResource ThemeColor1}"/>
+            <Label Text="{Binding TemperatureLow, StringFormat='Low: {0:N}&#186;F'}" FontSize="Medium"
+                   Grid.Row="2" Grid.ColumnSpan="2" TextColor="{StaticResource ThemeColor1}"/>
+            <Label Text="{Binding WindSpeed, StringFormat='Wind Speed: {0:N} MPH'}" FontSize="Medium"
+                   Grid.Row="3" Grid.ColumnSpan="2" TextColor="{StaticResource ThemeColor1}"/>
+            <Label Text="{Binding UvIndex, StringFormat='UV Index: {0:N}'}" FontSize="Medium"
+                   Grid.Row="4" Grid.ColumnSpan="2" TextColor="{StaticResource ThemeColor1}"/>
+            <Label Text="{Binding Summary, StringFormat='Summary: {0:N}'}" FontSize="Medium"
+                   Grid.Row="5" Grid.ColumnSpan="3" TextColor="{StaticResource ThemeColor1}"/>
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

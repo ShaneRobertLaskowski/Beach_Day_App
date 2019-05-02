@@ -18,16 +18,16 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Label Text ="Beaches" Grid.Row="0" Grid.ColumnSpan="3" Style="{StaticResource LabelPageHeading1}"/>
+                <Label Text ="Beach Selection" Grid.Row="0" Grid.ColumnSpan="3" Style="{StaticResource LabelPageHeading1}"/>
                 <Image Source="poweredbyoneline.png" WidthRequest="100" HeightRequest="25" HorizontalOptions="End"
                        Grid.Row="0" Grid.Column="2" VerticalOptions="End"/>
 
 
                 <StackLayout Grid.Row="1" Grid.ColumnSpan="3" x:Name="TodayLabelSection">
                     <Label Text="Today" FontSize="Medium" HorizontalOptions="Center" TextColor="{StaticResource ThemeColor1}"/>
-                    <Label x:Name="HighTempLabel" Text="{Binding TemperatureHigh, StringFormat='High Temperature: {0:N}&#186;F'}" 
+                    <Label x:Name="HighTempLabel" Text="{Binding TemperatureHigh, StringFormat='High: {0:N}&#186;F'}" 
                            TextColor="{StaticResource ThemeColor1}"/>
-                    <Label x:Name="LowTempLabel" Text="{Binding TemperatureLow, StringFormat='Low Temperature: {0:N}&#186;F'}" 
+                    <Label x:Name="LowTempLabel" Text="{Binding TemperatureLow, StringFormat='Low: {0:N}&#186;F'}" 
                            TextColor="{StaticResource ThemeColor1}"/>
                     <Label x:Name="WindSpeedLabel" Text="{Binding WindSpeed, StringFormat='Wind Speed: {0:N} MPH'}" 
                            TextColor="{StaticResource ThemeColor1}"/>
@@ -54,11 +54,13 @@
                                     </ViewCell.ContextActions>
                                     <ContentView Rotation="90">
                                         <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical">
-                                            <Label Text="{Binding Day}"></Label>
-                                            <Label Text="{Binding Month}"></Label>
-                                            <Label Text="{Binding TemperatureHigh}"></Label>
-                                            <Label Text="{Binding TemperatureLow}"></Label>
-                                            <Label Text="{Binding Summary}"></Label>
+                                            <Label Text="{Binding DateFormatted}" TextColor="{StaticResource ThemeColor1}" HorizontalOptions="Center"></Label>
+                                            <Label Text="{Binding TemperatureHigh, StringFormat='High: {0:N}&#186;F'}" 
+                                                   TextColor="{StaticResource ThemeColor1}"></Label>
+                                            <Label Text="{Binding TemperatureLow, StringFormat='Low: {0:N}&#186;F'}"
+                                                   TextColor="{StaticResource ThemeColor1}"></Label>
+                                            <Label Text="{Binding Summary, StringFormat='Summary: {0:N}'}"
+                                                   TextColor="{StaticResource ThemeColor1}"></Label>
                                         </StackLayout>
                                     </ContentView>
                                 </ViewCell>

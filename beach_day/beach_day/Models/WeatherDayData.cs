@@ -13,6 +13,7 @@ namespace beach_day.Models
 
         public string Day { get; set; }
         public string Month { get; set; }
+        public string DateFormatted { get; set; }
         public double TemperatureHigh { get; set; }
         public string TemperatureHighTime { get; set; }
         public double TemperatureLow { get; set; }
