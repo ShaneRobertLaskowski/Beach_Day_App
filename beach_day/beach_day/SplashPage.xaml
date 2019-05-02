@@ -3,17 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="beach_day.SplashPage">
     <ContentPage.Content>
-        <StackLayout BackgroundColor="#E0F4FF">
+        <StackLayout BackgroundColor="{StaticResource ThemeColor2}">
             <Image Source="beachDayLogo.png"
                    VerticalOptions="CenterAndExpand" 
                    HorizontalOptions="Center"
                    Aspect="AspectFit"/>
-            <Label Text="Beach Day" TextColor="#FFCC00" 
+            <Label Text="Beach Day" TextColor="{StaticResource ThemeColor1}" 
                    FontSize="40" 
                    HorizontalOptions="Center" 
-                   VerticalOptions="CenterAndExpand"/>
-            <Label Text="By Shane Laskowski" TextColor="#000"
-                   FontSize="Large" HorizontalOptions="Center" 
                    VerticalOptions="CenterAndExpand"/>
         </StackLayout>
     </ContentPage.Content>

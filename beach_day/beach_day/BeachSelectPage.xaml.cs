@@ -58,10 +58,11 @@ namespace beach_day
 
             if(!response.IsSuccessStatusCode)
             {
-                await DisplayAlert("Error", "Could Not get weather data :(", "OK");
+                await DisplayAlert("Error", "Could Not get weather data :(", "OK"); //***note: the API could send us an error JSON (failure on their part)
             }
             else {
                 Analytics.TrackEvent("DarkSky API called");
+                BeachSelectHeaderLabel.Text = beachSelected.Name;  //changes the header of page to name of beach selected
 
                 var jsonWeatherContent = await response.Content.ReadAsStringAsync();
                 weatherForcastData = JsonConvert.DeserializeObject<DarkSkyForecast>(jsonWeatherContent); //weatherForcastData is now a C# object containg our weather data

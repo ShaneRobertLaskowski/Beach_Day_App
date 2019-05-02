@@ -1,9 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
              x:Class="beach_day.ItemChecklist">
+
+   <!-- <xfg:ContentPageGloss.BackgroundGradient>
+        <xfg:Gradient Rotation="45">
+            <xfg:GradientStep StepColor="{StaticResource ThemeColor2}" StepPercentage=".4" />
+            <xfg:GradientStep StepColor="{StaticResource ThemeColor3}" StepPercentage="1" />
+        </xfg:Gradient>
+    </xfg:ContentPageGloss.BackgroundGradient> -->
+    
     <ContentPage.Content>
-        <Grid BackgroundColor="{StaticResource ThemeColor2}">
+        <Grid BackgroundColor="{StaticResource ThemeColor3}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
@@ -18,7 +27,7 @@
                    Grid.Row="0" Grid.ColumnSpan="2"/>
 
             <ListView x:Name="ItemViewList" RowHeight="50" Grid.Row="1" Grid.ColumnSpan="2" 
-                      SeparatorColor="{StaticResource ThemeColor4}">
+                      SeparatorColor="{StaticResource ThemeColor1}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -27,9 +36,9 @@
                             </ViewCell.ContextActions>
                             <ViewCell.View>
                                 <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical"
-                                             BackgroundColor="{StaticResource ThemeColor1}">
+                                             BackgroundColor="{StaticResource ThemeColor3}">
                                     <Label Text="{Binding Name}" HorizontalOptions="Center" VerticalOptions="Center" 
-                                           TextColor="{StaticResource ThemeColor4}" FontSize="Large"/>
+                                           TextColor="{StaticResource ThemeColor1}" FontSize="Large"/>
                                 </StackLayout>
                             </ViewCell.View>
                         </ViewCell>

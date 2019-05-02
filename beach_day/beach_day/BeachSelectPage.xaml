@@ -1,11 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
              x:Class="beach_day.BeachSelectPage">
-    
+
+    <xfg:ContentPageGloss.BackgroundGradient>
+        <xfg:Gradient Rotation="45">
+            <xfg:GradientStep StepColor="{StaticResource ThemeColor2}" StepPercentage=".4" />
+            <xfg:GradientStep StepColor="{StaticResource ThemeColor3}" StepPercentage="1" />
+        </xfg:Gradient>
+    </xfg:ContentPageGloss.BackgroundGradient>
+
     <ContentPage.Content>
         <ScrollView>
-            <Grid ColumnSpacing="0" RowSpacing="0" BackgroundColor="{StaticResource ThemeColor2}">
+            <Grid ColumnSpacing="0" RowSpacing="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                     <RowDefinition Height="1.5*" />
@@ -18,23 +26,42 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Label Text ="Beach Selection" Grid.Row="0" Grid.ColumnSpan="3" Style="{StaticResource LabelPageHeading1}"/>
-                <Image Source="poweredbyoneline.png" WidthRequest="100" HeightRequest="25" HorizontalOptions="End"
-                       Grid.Row="0" Grid.Column="2" VerticalOptions="End"/>
+                <Label Text ="Beach Selection" Grid.Row="0" Grid.ColumnSpan="3" 
+                       Style="{StaticResource LabelPageHeading1}" x:Name="BeachSelectHeaderLabel"/>
 
-
-                <StackLayout Grid.Row="1" Grid.ColumnSpan="3" x:Name="TodayLabelSection">
-                    <Label Text="Today" FontSize="Medium" HorizontalOptions="Center" TextColor="{StaticResource ThemeColor1}"/>
+                <Grid Grid.Row="1" Grid.ColumnSpan="3" x:Name="TodayLabelSection">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="2*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <Label Text="Today" FontSize="Medium" HorizontalOptions="Center" TextColor="{StaticResource ThemeColor1}"
+                           Grid.Row="0" Grid.Column="1" x:Name="TodaySectionHeaderLabel"/>
+                    <Image Source="poweredbyoneline.png" WidthRequest="100" HeightRequest="25" HorizontalOptions="End"
+                       Grid.Row="0" Grid.Column="2" VerticalOptions="End" x:Name="DarkSkyLogoMarker"/>
                     <Label x:Name="HighTempLabel" Text="{Binding TemperatureHigh, StringFormat='High: {0:N}&#186;F'}" 
-                           TextColor="{StaticResource ThemeColor1}"/>
+                           TextColor="{StaticResource ThemeColor1}" Grid.Row="1" Grid.ColumnSpan="3"/>
                     <Label x:Name="LowTempLabel" Text="{Binding TemperatureLow, StringFormat='Low: {0:N}&#186;F'}" 
-                           TextColor="{StaticResource ThemeColor1}"/>
+                           TextColor="{StaticResource ThemeColor1}" Grid.Row="2" Grid.ColumnSpan="3"/>
                     <Label x:Name="WindSpeedLabel" Text="{Binding WindSpeed, StringFormat='Wind Speed: {0:N} MPH'}" 
-                           TextColor="{StaticResource ThemeColor1}"/>
-                    <Label x:Name="UVIndexLabel" Text="{Binding UvIndex, StringFormat='UV Index: {0:N}'}"  TextColor="{StaticResource ThemeColor1}"/>
-                    <Label x:Name="DescriptionLabel" Text="{Binding Summary, StringFormat='Summary: {0:N}'}" TextColor="{StaticResource ThemeColor1}"/>
-                </StackLayout>
+                           TextColor="{StaticResource ThemeColor1}" Grid.Row="3" Grid.ColumnSpan="3"/>
+                    <Label x:Name="UVIndexLabel" Text="{Binding UvIndex, StringFormat='UV Index: {0:N}'}"  
+                           TextColor="{StaticResource ThemeColor1}" Grid.Row="4" Grid.ColumnSpan="3"/>
+                    <Label x:Name="DescriptionLabel" Text="{Binding Summary, StringFormat='Summary: {0:N}'}" 
+                           TextColor="{StaticResource ThemeColor1}" Grid.Row="5" Grid.ColumnSpan="3"/>
+                </Grid>
 
+                
+                
                 <ActivityIndicator x:Name="QueryingWeatherIndicator" Color="#000" IsRunning="False" 
                                VerticalOptions="End" Grid.Column="1" Grid.Row="1"/>
 
@@ -53,15 +80,26 @@
                                         <MenuItem Text="More Info" Clicked="MenuItem_MoreInfo_Clicked"  CommandParameter="{Binding .}" />
                                     </ViewCell.ContextActions>
                                     <ContentView Rotation="90">
-                                        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical">
-                                            <Label Text="{Binding DateFormatted}" TextColor="{StaticResource ThemeColor1}" HorizontalOptions="Center"></Label>
+                                        <!--replaced stacklayout with a Grid-->
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="2*" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="{Binding DateFormatted}" TextColor="{StaticResource ThemeColor1}" 
+                                                   HorizontalOptions="Center" Grid.Row="0"/>
                                             <Label Text="{Binding TemperatureHigh, StringFormat='High: {0:N}&#186;F'}" 
-                                                   TextColor="{StaticResource ThemeColor1}"></Label>
+                                                   TextColor="{StaticResource ThemeColor1}" Grid.Row="1"/>
                                             <Label Text="{Binding TemperatureLow, StringFormat='Low: {0:N}&#186;F'}"
-                                                   TextColor="{StaticResource ThemeColor1}"></Label>
+                                                   TextColor="{StaticResource ThemeColor1}" Grid.Row="2"/>
                                             <Label Text="{Binding Summary, StringFormat='Summary: {0:N}'}"
-                                                   TextColor="{StaticResource ThemeColor1}"></Label>
-                                        </StackLayout>
+                                                   TextColor="{StaticResource ThemeColor1}" Grid.Row="3"/>
+                                        </Grid>
                                     </ContentView>
                                 </ViewCell>
                             </DataTemplate>
