@@ -11,10 +11,36 @@
     </xfg:ContentPageGloss.BackgroundGradient>
     
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Tanning Tool Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="00:00:00" VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" FontSize="40"
+                Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                TextColor="{StaticResource ThemeColor1}" x:Name="TotalTimeTimer"/>
+
+            <Label Text ="Set Alert Interval Time:" Grid.Row="1" Grid.Column="0" 
+                   HorizontalOptions="Center" VerticalOptions="Center" TextColor="{StaticResource ThemeColor1}"
+                   FontSize="Medium"/>
+            <Entry Placeholder="Min" Grid.Row="1" Grid.Column="1" x:Name="MinuteEntry"
+                   HorizontalOptions="Center" VerticalOptions="Center"/>
+
+            <Button Text="Start" Style="{StaticResource DefaultButton1}" Clicked="Button_Start_Clicked"
+                    Grid.Row="2" Grid.Column="0"/>
+            <Button Text="Pause" Style="{StaticResource DefaultButton1}" Clicked="Button_Pause_Clicked"
+                    Grid.Row="2" Grid.Column="1"/>
+            <Button Text="Reset" Style="{StaticResource DefaultButton1}" Clicked="Button_Reset_Clicked"
+                    Grid.Row="2" Grid.Column="2"/>
+                
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
