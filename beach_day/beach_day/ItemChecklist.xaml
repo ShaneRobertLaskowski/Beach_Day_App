@@ -22,7 +22,8 @@
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
+
+            <BoxView BackgroundColor="{StaticResource ThemeColor2}" Grid.Row="0" Grid.ColumnSpan="2"/>
             <Label Text="Checklist" Style="{StaticResource LabelPageHeading1}"
                    Grid.Row="0" Grid.ColumnSpan="2"/>
 
@@ -46,13 +47,24 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <!--<BoxView BackgroundColor="Fuchsia" Grid.Row="2" Grid.Column="0"/> -->
-            <Entry Placeholder="Add Item..." x:Name="UserItemInput" VerticalOptions="CenterAndExpand" 
-                   HorizontalOptions="FillAndExpand" Grid.Row="2" Grid.Column="0"/>
+            <BoxView BackgroundColor="{StaticResource ThemeColor2}" Grid.Row="2" Grid.ColumnSpan="2"/>
+            <Entry Placeholder="Add Item..." Text="" x:Name="UserItemInput" VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="FillAndExpand" Grid.Row="2" Grid.Column="0" />
 
             <Button Text="Add To List" Clicked="Item_Added_Clicked" Style="{StaticResource DefaultButton1}"
-                    Grid.Row="2" Grid.Column="1"/>
-         
+                    Grid.Row="2" Grid.Column="1">
+                <Button.Triggers>
+                    <DataTrigger
+                    TargetType="Button"
+                    Binding="{Binding Source={x:Reference UserItemInput}, Path=Text.Length}"
+                    Value="0">
+                        <Setter
+                        Property="IsEnabled"
+                        Value="False" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+
 
         </Grid>
     </ContentPage.Content>

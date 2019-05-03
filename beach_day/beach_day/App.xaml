@@ -28,6 +28,14 @@
                 <Setter Property="TextColor" Value="{StaticResource ThemeColor1}" />
             </Style>
 
+            <Style TargetType="Entry">
+                <Style.Triggers>
+                    <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                        <Setter Property="BackgroundColor" Value="{StaticResource ThemeColor4}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            
         </ResourceDictionary>
 
     </Application.Resources>

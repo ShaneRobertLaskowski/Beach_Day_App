@@ -58,30 +58,25 @@ namespace beach_day
 
             if(!response.IsSuccessStatusCode)
             {
-                await DisplayAlert("Error", "Could Not get weather data :(", "OK"); //***note: the API could send us an error JSON (failure on their part)
+                await DisplayAlert("Error", "Could Not get weather data :(", "OK"); 
             }
             else {
+                //***note: the API could send us an error JSON (failure on their part)
                 Analytics.TrackEvent("DarkSky API called");
                 BeachSelectHeaderLabel.Text = beachSelected.Name;  //changes the header of page to name of beach selected
+
+                TodaySectionHeaderLabel.IsVisible = true;  //displays the "Today" label
+                DarkSkyLogoMarker.IsVisible = true; //displays the Dark Sky 'watermark' image
 
                 var jsonWeatherContent = await response.Content.ReadAsStringAsync();
                 weatherForcastData = JsonConvert.DeserializeObject<DarkSkyForecast>(jsonWeatherContent); //weatherForcastData is now a C# object containg our weather data
 
                 List<DailyDatum> rawDailyWeatherData = weatherForcastData.Daily.Data;  //grabs next 7 days' + today's weather data and stores in a List
-
                 List<WeatherDayData> salientDailyWeatherList = DailyDatumToWeatherDayDataExtraction(rawDailyWeatherData);  //filter out the salient data and put into new list of type WeatherDayData
 
                 //need to remove the 1st List item (if list is not empty) and place its content in the "Today" labelling section of the .xaml
-
                 TodayLabelSection.BindingContext = salientDailyWeatherList[0];
-
-                /*HighTempLabel.BindingContext = salientDailyWeatherList[0].TemperatureHigh.ToString();
-                LowTempLabel.BindingContext = salientDailyWeatherList[0].TemperatureLow.ToString();
-                WindSpeedLabel.BindingContext = salientDailyWeatherList[0].WindSpeed.ToString();
-                UVIndexLabel.BindingContext = salientDailyWeatherList[0].UvIndex.ToString();
-                DescriptionLabel.BindingContext = salientDailyWeatherList[0].Summary;
-                */
-                salientDailyWeatherList.RemoveAt(0);// removes the first weather day data in this list
+                salientDailyWeatherList.RemoveAt(0);
 
                 ObservableCollection<WeatherDayData> weatherCollection = new ObservableCollection<WeatherDayData>(salientDailyWeatherList);
                 WeatherList.ItemsSource = weatherCollection; //assigns the observable collection to the listview

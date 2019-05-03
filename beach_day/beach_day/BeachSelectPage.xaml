@@ -45,9 +45,9 @@
                     </Grid.ColumnDefinitions>
                     
                     <Label Text="Today" FontSize="Medium" HorizontalOptions="Center" TextColor="{StaticResource ThemeColor1}"
-                           Grid.Row="0" Grid.Column="1" x:Name="TodaySectionHeaderLabel"/>
+                           Grid.Row="0" Grid.Column="1" x:Name="TodaySectionHeaderLabel" IsVisible ="False"/>
                     <Image Source="poweredbyoneline.png" WidthRequest="100" HeightRequest="25" HorizontalOptions="End"
-                       Grid.Row="0" Grid.Column="2" VerticalOptions="End" x:Name="DarkSkyLogoMarker"/>
+                       Grid.Row="0" Grid.Column="2" VerticalOptions="End" x:Name="DarkSkyLogoMarker" IsVisible="False"/>
                     <Label x:Name="HighTempLabel" Text="{Binding TemperatureHigh, StringFormat='High: {0:N}&#186;F'}" 
                            TextColor="{StaticResource ThemeColor1}" Grid.Row="1" Grid.ColumnSpan="3"/>
                     <Label x:Name="LowTempLabel" Text="{Binding TemperatureLow, StringFormat='Low: {0:N}&#186;F'}" 
@@ -114,8 +114,13 @@
                 </Picker>
 
                 <Button Text="Directions" Style="{StaticResource DefaultButton1}" Clicked="DisplayDirections"
-                    Grid.Column="2" Grid.Row="3"/>
-
+                    Grid.Column="2" Grid.Row="3">
+                    <Button.Triggers> <!-- This Trigger is not working-->
+                        <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference BeachPicker}, Path=SelectedIndex}" Value="-1">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
 
             </Grid>
         </ScrollView>
