@@ -140,6 +140,11 @@ namespace beach_day
             {
                 beach1, beach2, beach3, beach4, beach5, beach6, beach7
             };
+
+            //new code *****************************
+            //ObservableCollection<BeachPlace> testBeaches = new ObservableCollection<BeachPlace>(beaches);
+            //BeachPicker.ItemsSource = new ObservableCollection<BeachPlace>(beaches);
+
             BeachPicker.ItemsSource = new ObservableCollection<BeachPlace>(beaches);
 
         }
@@ -172,6 +177,14 @@ namespace beach_day
             var options = new MapLaunchOptions { NavigationMode = NavigationMode.Driving, Name = userSelectedBeach.Name };
 
             await Map.OpenAsync(location, options);
+        }
+
+        private async void Toolbar_Beaches_Clicked(object sender, EventArgs e)
+        {
+            //********************************************
+            //do i really want to pass the itemsource, i wanted to pass the binded observable collection?
+            await Navigation.PushAsync(new Beaches()); 
+
         }
     }
 }

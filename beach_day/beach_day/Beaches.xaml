@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="beach_day.Beaches">
+    <ContentPage.Content>
+        <Grid BackgroundColor="{StaticResource ThemeColor2}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <BoxView BackgroundColor="Fuchsia" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/>
+            <Label Text="Welcome to the Beaches page!  This should be a google map, but it isn't :("
+                VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" 
+                   Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/>
+
+            <Label Text="Beach Address" VerticalOptions="CenterAndExpand" 
+                   HorizontalOptions="CenterAndExpand" Grid.Column="0" Grid.Row="1" 
+                   Grid.ColumnSpan="3"/>
+
+            <Picker x:Name="BeachPicker" Title="Select A Beach..." 
+                    SelectedIndexChanged="Beach_Picked"  ItemDisplayBinding ="{Binding Name}"  
+                    Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"/>
+            
+            <Button Text="Delete" Style="{StaticResource DefaultButton1}" TextColor="Red"
+                    Grid.Column="2" Grid.Row="2" Clicked="Button_DeletBeach_Clicked"/>
+
+        </Grid>
+    </ContentPage.Content>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add Beach" Clicked="Toolbar_AddBeach_Clicked"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+</ContentPage>

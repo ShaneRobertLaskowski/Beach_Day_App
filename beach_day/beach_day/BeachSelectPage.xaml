@@ -127,7 +127,7 @@
     </ContentPage.Content>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add Beach"></ToolbarItem>
+        <ToolbarItem Text="Beaches" Clicked="Toolbar_Beaches_Clicked"></ToolbarItem>
     </ContentPage.ToolbarItems>
 
 </ContentPage>

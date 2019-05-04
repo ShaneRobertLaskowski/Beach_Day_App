@@ -25,10 +25,10 @@ namespace beach_day
          * start time to the timer's current time that is displayed.
         */
 
-        /*BUG: if user taps start multiple times, the timer displayed goes to hell:  multiple Start function threads
-         * are created, and they all mess with the displaying Label.  to stop this, use a private static global variable
-         * as a count for number of threads.  (or use a bool).  at start of the thread/function, increment it/set to true.
-         * but at the very very beginning of it, check if its more than 1 or is true, if so, then imediately return
+        /*BUG: if user spams the start button, then the Button_Start_Clicked async function is ran mutliple times on
+         * different threads.  to avoid this and the messed up timer display that results, another function is needed
+         * to be called before this function, which will call Button_Start_Clicked if a mutex lock/binary semaphore
+         * is not waited on ==> only 1 invocation of the function occurs at once
          */
         //should try to figure out if more efficient way to implement this timer, like reducing the "refresh rate"
         private async void Button_Start_Clicked(object sender, EventArgs e)
@@ -41,7 +41,7 @@ namespace beach_day
             TimeSpan interval;
             DateTime UpdatedTime;
 
-            int intervalMinutesRecorded = 0;
+            int intervalMinutesRecorded = 0; //this code might be related to the bug that causes the Alert to be off if timer paused
 
             while (isRunning)
             {
