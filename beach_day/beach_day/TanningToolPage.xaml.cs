@@ -18,6 +18,10 @@ namespace beach_day
                                                 //due to the while-loop in the start button, which will overwrite the text field's "00:00:00" value.
         private static SemaphoreSlim TimerControlSemaphore = new SemaphoreSlim(1, 1); //used to alllow only 1 instance of the timer-running function/thread to occur at once
 
+        int intervalMinutesRecorded = 0; //this code might be related to the bug that causes the Alert to be off if timer paused
+
+
+
         public TanningToolPage ()
 		{
 			InitializeComponent ();
@@ -26,7 +30,7 @@ namespace beach_day
         //***i want this method to be static?
         public async void Button_Start_Clicked(object sender, EventArgs e)
         {
-            //if number of threads waiting is more than 0, CurrentCount == 0, then abort this thread;
+            //if number of threads waiting is more than 0, then abort this thread;
             if (TimerControlSemaphore.CurrentCount == 0)
                 return; //"kills" this thread
 
@@ -47,37 +51,39 @@ namespace beach_day
         /*this timer works by "refreshing" the displayed time, rather than calculating it from 00:00:00.
          * the authoratative time is the device's current time, which is used to derive the true offset from
          * start time to the timer's current time that is displayed.
+         * Should try to reduce the "refresh rate" from 10ms to 100ms
         */
-
-        /* ******BUG: In middle of timer run, if user hits pause, the Alert Interval is off by same time that user pauses the timer.
-         * 
-         */
-        //should try to figure out if more efficient way to implement this timer, like reducing the "refresh rate"
         private async void Start_Tanning_Timer() //Button_Start_Clicked(object sender, EventArgs e)
         {
             isRunning = true;
             resetFlag = false;
             DateTime StartTime = DateTime.Now;
-            string InitialrepresentedTime = TotalTimeTimer.Text; //should be 00:00:00
+            string InitialrepresentedTime = TotalTimeTimer.Text; //should be xx:xx:xx
             DateTime initRepresentedDateTime = Convert.ToDateTime(InitialrepresentedTime);
             TimeSpan interval;
             DateTime UpdatedTime;
-
-            int intervalMinutesRecorded = 0; //this code might be related to the bug that causes the Alert to be off if timer paused
+            string diplayedTimeString;
+            TimeSpan diplayedTimeDateTime;
 
             while (isRunning)
             {
-                await Task.Delay(10); //controls the "refresh rate" of the time displayed, 10ms might be too fast for its worth
-                interval = DateTime.Now.Subtract(StartTime); //difference between actual current time and time that user started 
-                UpdatedTime = initRepresentedDateTime.Add(interval);
+                await Task.Delay(10); //*******controls the "refresh rate" of the time displayed, 10ms might be too fast for its worth
+                interval = DateTime.Now.Subtract(StartTime);
+                UpdatedTime = initRepresentedDateTime.Add(interval); //****why not just assign interval to UpdatedTime?
                 TotalTimeTimer.Text = UpdatedTime.ToString("HH:mm:ss");
 
 
-                if (interval.Minutes > intervalMinutesRecorded)
+
+                diplayedTimeString = TotalTimeTimer.Text;
+                diplayedTimeDateTime = TimeSpan.Parse(diplayedTimeString);
+
+                //checks if displayed minutes has changed, that way the function isn't called so many times
+                if (diplayedTimeDateTime.Minutes > intervalMinutesRecorded)
                 {
-                    intervalMinutesRecorded = interval.Minutes;
+                    intervalMinutesRecorded = diplayedTimeDateTime.Minutes;
                     CheckTimeIntervalMet(interval);
                 }
+                
             }
 
             if(resetFlag == true)
@@ -96,8 +102,9 @@ namespace beach_day
             TotalTimeTimer.Text = "00:00:00";
         }
 
-        private bool CheckTimeIntervalMet(TimeSpan timeSpentTanning)
+        private void CheckTimeIntervalMet(TimeSpan timeSpentTanning)
         {
+            /*
             //if timespentTanning % 30 min == 0, then alert user that they baked themselves enough
             bool minutesIsConvertiable = int.TryParse(MinuteEntry.Text, out int userMinuteEntry);
             int elapsedMinutes = timeSpentTanning.Minutes;
@@ -111,14 +118,22 @@ namespace beach_day
                 //play sound
                 //vibrate phone
             }
-            else
+            */
+
+            bool minutesIsConvertiable = int.TryParse(MinuteEntry.Text, out int userMinuteEntry);
+            string diplayedTimeString = TotalTimeTimer.Text; //should be xx:xx:xx
+            TimeSpan diplayedTimeDateTime = TimeSpan.Parse(diplayedTimeString);
+
+            //Note: N % 1 is always 0, ==> this entire method should be called only once every time the minutes change
+            if (minutesIsConvertiable && userMinuteEntry > 0 && diplayedTimeDateTime.Minutes >= 1 && diplayedTimeDateTime.Minutes % userMinuteEntry == 0)
             {
-                return false;
+                DisplayAlert("Alert", "Tanning Time Interval Has Been Reached, " +
+                    "adjust body or apply more sunscreen", "OK");
+                //play sound
+                //vibrate phone
             }
 
-
-
-            return true;
+            return;
         }
     }
 }
