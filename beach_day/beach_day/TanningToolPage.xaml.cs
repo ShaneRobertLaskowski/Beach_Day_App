@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -15,23 +16,44 @@ namespace beach_day
         private static bool isRunning = false; //controls whether the timer pauses or not (control while loop)
         private static bool resetFlag = false;  //quick and dirty fix to a bug that makes reset function not work due
                                                 //due to the while-loop in the start button, which will overwrite the text field's "00:00:00" value.
-		public TanningToolPage ()
+        private static SemaphoreSlim TimerControlSemaphore = new SemaphoreSlim(1, 1); //used to alllow only 1 instance of the timer-running function/thread to occur at once
+
+        public TanningToolPage ()
 		{
 			InitializeComponent ();
 		}
+
+        //***i want this method to be static?
+        public async void Button_Start_Clicked(object sender, EventArgs e)
+        {
+            //if number of threads waiting is more than 0, CurrentCount == 0, then abort this thread;
+            if (TimerControlSemaphore.CurrentCount == 0)
+                return; //"kills" this thread
+
+            await TimerControlSemaphore.WaitAsync();
+            try
+            {
+                Start_Tanning_Timer();
+                Console.WriteLine("Semaphore value taken, timer function called");
+            }
+            catch (Exception someException)
+            {
+                Console.WriteLine(someException.Message);
+            }
+
+        }
+
 
         /*this timer works by "refreshing" the displayed time, rather than calculating it from 00:00:00.
          * the authoratative time is the device's current time, which is used to derive the true offset from
          * start time to the timer's current time that is displayed.
         */
 
-        /*BUG: if user spams the start button, then the Button_Start_Clicked async function is ran mutliple times on
-         * different threads.  to avoid this and the messed up timer display that results, another function is needed
-         * to be called before this function, which will call Button_Start_Clicked if a mutex lock/binary semaphore
-         * is not waited on ==> only 1 invocation of the function occurs at once
+        /* ******BUG: In middle of timer run, if user hits pause, the Alert Interval is off by same time that user pauses the timer.
+         * 
          */
         //should try to figure out if more efficient way to implement this timer, like reducing the "refresh rate"
-        private async void Button_Start_Clicked(object sender, EventArgs e)
+        private async void Start_Tanning_Timer() //Button_Start_Clicked(object sender, EventArgs e)
         {
             isRunning = true;
             resetFlag = false;
@@ -61,6 +83,7 @@ namespace beach_day
             if(resetFlag == true)
                 TotalTimeTimer.Text = "00:00:00";
 
+            TimerControlSemaphore.Release(); //allows another call to this function
         }
         private void Button_Pause_Clicked(object sender, EventArgs e)
         {

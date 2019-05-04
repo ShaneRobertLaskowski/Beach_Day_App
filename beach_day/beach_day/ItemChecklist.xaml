@@ -54,13 +54,9 @@
             <Button Text="Add To List" Clicked="Item_Added_Clicked" Style="{StaticResource DefaultButton1}"
                     Grid.Row="2" Grid.Column="1">
                 <Button.Triggers>
-                    <DataTrigger
-                    TargetType="Button"
-                    Binding="{Binding Source={x:Reference UserItemInput}, Path=Text.Length}"
-                    Value="0">
-                        <Setter
-                        Property="IsEnabled"
-                        Value="False" />
+                    <DataTrigger TargetType="Button" Value="0"
+                                 Binding="{Binding Source={x:Reference UserItemInput}, Path=Text.Length}">
+                        <Setter Property="IsEnabled" Value="False" />
                     </DataTrigger>
                 </Button.Triggers>
             </Button>

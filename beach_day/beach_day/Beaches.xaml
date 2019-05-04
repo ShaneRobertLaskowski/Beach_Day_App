@@ -5,7 +5,7 @@
     <ContentPage.Content>
         <Grid BackgroundColor="{StaticResource ThemeColor2}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -27,9 +27,15 @@
             <Picker x:Name="BeachPicker" Title="Select A Beach..." 
                     SelectedIndexChanged="Beach_Picked"  ItemDisplayBinding ="{Binding Name}"  
                     Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"/>
-            
+
             <Button Text="Delete" Style="{StaticResource DefaultButton1}" TextColor="Red"
-                    Grid.Column="2" Grid.Row="2" Clicked="Button_DeletBeach_Clicked"/>
+                    Grid.Column="2" Grid.Row="2" Clicked="Button_DeletBeach_Clicked">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference BeachPicker}, Path=SelectedIndex}" Value="-1">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
 
         </Grid>
     </ContentPage.Content>

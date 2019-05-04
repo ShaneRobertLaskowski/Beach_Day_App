@@ -32,7 +32,7 @@
                    HorizontalOptions="Center" VerticalOptions="Center" TextColor="{StaticResource ThemeColor1}"
                    FontSize="Medium"/>
             <Entry Placeholder="Min" Grid.Row="1" Grid.Column="1" x:Name="MinuteEntry"
-                   HorizontalOptions="Center" VerticalOptions="Center"/>
+                   HorizontalOptions="Center" VerticalOptions="Center" Keyboard="Numeric"/>
 
             <Button Text="Start" Style="{StaticResource DefaultButton1}" Clicked="Button_Start_Clicked"
                     Grid.Row="2" Grid.Column="0"/>

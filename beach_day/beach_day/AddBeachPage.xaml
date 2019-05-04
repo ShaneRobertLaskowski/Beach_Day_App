@@ -3,10 +3,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="beach_day.AddBeachPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to add beach page, i love you."
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid BackgroundColor="{StaticResource ThemeColor2}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <BoxView BackgroundColor="Fuchsia" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/>
+            <Label Text="Welcome to the Beaches page!  This should be a google map, but it isn't :("
+                VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" 
+                   Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/>
+
+            <Entry Placeholder="Enter Name..." Grid.Column="0" Grid.Row="1" 
+                   x:Name="BeachEntryName" Grid.ColumnSpan="2"/>
+            <Entry x:Name="BeachEntryLat" Placeholder="Enter Latitude..." Grid.Column="0" 
+                   Grid.Row="2" Grid.ColumnSpan="2" Keyboard="Numeric"/>
+            <Entry x:Name="BeachEntryLng" Placeholder="Enter Longitude..." Grid.Column="0" 
+                   Grid.Row="3" Grid.ColumnSpan="2" Keyboard="Numeric"/>
+
+            <Button Style="{StaticResource DefaultButton1}" Grid.Column="0" Grid.Row="4" 
+                    Grid.ColumnSpan="3" Text="Add Beach"/>
+            
+        </Grid>
+        
+        
+        
+        
     </ContentPage.Content>
 </ContentPage>
