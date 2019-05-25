@@ -36,10 +36,15 @@
                                 <MenuItem Text="Delete" Clicked="MenuItem_Delete_Clicked"  CommandParameter="{Binding .}" IsDestructive="True"/>
                             </ViewCell.ContextActions>
                             <ViewCell.View>
-                                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical"
+                                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Horizontal"
                                              BackgroundColor="{StaticResource ThemeColor3}">
-                                    <Label Text="{Binding Name}" HorizontalOptions="Center" VerticalOptions="Center" 
-                                           TextColor="{StaticResource ThemeColor1}" FontSize="Large"/>
+                                    <Label Text="{Binding Name}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" 
+                                           TextColor="{StaticResource ThemeColor1}" FontSize="Large" TextDecorations="None"/>
+                                    <!--<Button Text="Delete" HorizontalOptions="End"/>-->
+                                    
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="StrikeThroughAddOrRemove"/>
+                                    </StackLayout.GestureRecognizers>
                                 </StackLayout>
                             </ViewCell.View>
                         </ViewCell>

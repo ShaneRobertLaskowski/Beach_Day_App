@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 
 namespace beach_day
 {
@@ -73,6 +74,7 @@ namespace beach_day
             }
         }
 
+        ///*****************************DELETE THIS FUNCTION
         //deletes the item passed via command parameter from the observable collection, which reflects in the displayed viewlist, and deletes from the DB too
         private async void MenuItem_Delete_Clicked(object sender, EventArgs e)
         {
@@ -87,5 +89,48 @@ namespace beach_day
         {
             e.Text = "";
         }
+
+        /// <summary>
+        ///     passes the stack layout and disables/enables the strikethrough of the Label view that must
+        ///     be the first child view of this layout.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StrikeThroughAddOrRemove(object sender, EventArgs e)
+        {
+            var layout = (StackLayout) sender;
+
+            var StackLayoutContents = layout.Children;
+            Label firstLabel; //= (Label) StackLayoutContents[0]; //***HardCode -> the first item of the layout must be the Label view.
+            int labelIndex = FindFirstLabelView(StackLayoutContents);
+
+            if (labelIndex != -1)
+            {
+                firstLabel = (Label)StackLayoutContents[labelIndex];
+                if (firstLabel.TextDecorations == Xamarin.Forms.TextDecorations.Strikethrough)
+                    firstLabel.TextDecorations = Xamarin.Forms.TextDecorations.None;
+                else firstLabel.TextDecorations = Xamarin.Forms.TextDecorations.Strikethrough;
+            }
+        }
+
+        /// <summary>
+        ///     Finds the first Label view within IList
+        /// </summary>
+        /// <param name="layout"> an IList container of Views</param>
+        /// <returns> The index of the first Label view, or -1 if none are found</returns>
+        private int FindFirstLabelView(IList<View> layout)
+        {
+
+            for(int i = 0; i < layout.Count; i++)
+            {
+                
+                if(layout[i].ToString() == typeof(Label).ToString())
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
     }
 }
