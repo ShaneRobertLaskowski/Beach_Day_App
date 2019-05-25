@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Plugin.SimpleAudioPlayer;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -37,7 +40,7 @@ namespace beach_day
             await TimerControlSemaphore.WaitAsync();
             try
             {
-                Start_Tanning_Timer();
+                Resume_Tanning_Timer();
                 Console.WriteLine("Semaphore value taken, timer function called");
             }
             catch (Exception someException)
@@ -48,12 +51,16 @@ namespace beach_day
         }
 
 
-        /*this timer works by "refreshing" the displayed time, rather than calculating it from 00:00:00.
-         * the authoratative time is the device's current time, which is used to derive the true offset from
-         * start time to the timer's current time that is displayed.
-         * Should try to reduce the "refresh rate" from 10ms to 100ms
+        /*This solution is not perfect, but it works on a thread different from UI thread, a better solution is desirable.
+         * this timer works by "refreshing" the displayed time by refering to an authoratative clock (DateTime.Now).
+         * the authoratative time is the device's current time, which is used to track the change in time.
+         * it relies on Task.Delay(...) with an argument that is "hardcody".  You may notice that the timespan between the 
+         * displayed seconds is not even.  some seconds last
+         * longer than other elapses in time, but this is offseted by timespans between dispalyed seconds lasting shorter.
+         * 
+         * Perhaps built in classes like System.Timers can give cleaner and more efficient solutions.
         */
-        private async void Start_Tanning_Timer() //Button_Start_Clicked(object sender, EventArgs e)
+        private async void Resume_Tanning_Timer() //Button_Start_Clicked(object sender, EventArgs e)
         {
             isRunning = true;
             resetFlag = false;
@@ -67,7 +74,7 @@ namespace beach_day
 
             while (isRunning)
             {
-                await Task.Delay(10); //*******controls the "refresh rate" of the time displayed, 10ms might be too fast for its worth
+                await Task.Delay(900); //*******controls the "refresh rate" of the time displayed, a shorter deplay improves accuracy, but gives performance hit.
                 interval = DateTime.Now.Subtract(StartTime);
                 UpdatedTime = initRepresentedDateTime.Add(interval); //****why not just assign interval to UpdatedTime?
                 TotalTimeTimer.Text = UpdatedTime.ToString("HH:mm:ss");
@@ -102,38 +109,52 @@ namespace beach_day
             TotalTimeTimer.Text = "00:00:00";
         }
 
+
+        //need to test when timer reaches into the hours.
+        //does this work for hours too?  (consider timer @ 00:03:00, if user's alert interval set at 60min, will this work?)
         private void CheckTimeIntervalMet(TimeSpan timeSpentTanning)
         {
-            /*
-            //if timespentTanning % 30 min == 0, then alert user that they baked themselves enough
-            bool minutesIsConvertiable = int.TryParse(MinuteEntry.Text, out int userMinuteEntry);
-            int elapsedMinutes = timeSpentTanning.Minutes;
-
-            //userMinuteEntry > 0 works because minutesIsConvertiable is checked hopefully checked first and terminates if clause if it fails
-            //the last condition, elapsedMinutes % userMinuteEntry, will not fall into divide by 0 exception for same reasoning
-            if (minutesIsConvertiable && userMinuteEntry > 0  && elapsedMinutes % userMinuteEntry == 0)
-            {
-                DisplayAlert("Alert", "Tanning Time Interval Has Been Reached, " +
-                    "adjust body or apply more sunscreen", "OK");
-                //play sound
-                //vibrate phone
-            }
-            */
-
             bool minutesIsConvertiable = int.TryParse(MinuteEntry.Text, out int userMinuteEntry);
             string diplayedTimeString = TotalTimeTimer.Text; //should be xx:xx:xx
             TimeSpan diplayedTimeDateTime = TimeSpan.Parse(diplayedTimeString);
+            ISimpleAudioPlayer player = CrossSimpleAudioPlayer.Current;
+            player.Volume = 0.5;
 
             //Note: N % 1 is always 0, ==> this entire method should be called only once every time the minutes change
             if (minutesIsConvertiable && userMinuteEntry > 0 && diplayedTimeDateTime.Minutes >= 1 && diplayedTimeDateTime.Minutes % userMinuteEntry == 0)
             {
-                DisplayAlert("Alert", "Tanning Time Interval Has Been Reached, " +
-                    "adjust body or apply more sunscreen", "OK");
-                //play sound
-                //vibrate phone
+                DisplayAlert("Alert", "Tanning Time Interval Has Been Reached", "OK");
+
+                //play sound (use SimpleAudioPlayer NuGet)
+                player.Load("AlarmSound.mp3");
+                player.Play();
+
+                VibrationAlert();
             }
 
             return;
+        }
+
+
+        private void VibrationAlert()
+        {
+            try
+            {
+                // Use default vibration length (500 ms)
+                //Vibration.Vibrate();
+
+                // Or use specified time
+                var duration = TimeSpan.FromSeconds(1.5);
+                Vibration.Vibrate(duration);
+            }
+            catch (FeatureNotSupportedException ex)
+            {
+                // Feature not supported on device
+            }
+            catch (Exception ex)
+            {
+                // Other error has occurred.
+            }
         }
     }
 }

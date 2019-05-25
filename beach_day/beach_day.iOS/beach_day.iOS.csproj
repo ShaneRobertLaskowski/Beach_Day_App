@@ -181,4 +181,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\GuitarGroveEdit.mp3" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\poweredbyoneline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\beachDayLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\AlarmSound.mp3" />
+  </ItemGroup>
 </Project>
