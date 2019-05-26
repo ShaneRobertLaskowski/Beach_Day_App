@@ -33,9 +33,6 @@
                     Grid.ColumnSpan="3" Text="Add Beach"/>
             
         </Grid>
-        
-        
-        
-        
+
     </ContentPage.Content>
 </ContentPage>

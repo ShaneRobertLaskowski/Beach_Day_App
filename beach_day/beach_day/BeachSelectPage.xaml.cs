@@ -20,6 +20,9 @@ namespace beach_day
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class BeachSelectPage : ContentPage
 	{
+
+        ObservableCollection<BeachPlace> beachCollection;
+
 		public BeachSelectPage ()
 		{
 			InitializeComponent ();
@@ -146,8 +149,8 @@ namespace beach_day
 
             //ObservableCollection<BeachPlace> testBeaches = new ObservableCollection<BeachPlace>(beaches);
             //BeachPicker.ItemsSource = new ObservableCollection<BeachPlace>(beaches);
-
-            BeachPicker.ItemsSource = new ObservableCollection<BeachPlace>(beaches);
+            beachCollection = new ObservableCollection<BeachPlace>(beaches);
+            BeachPicker.ItemsSource = beachCollection;
 
         }
 
@@ -185,8 +188,9 @@ namespace beach_day
         {
             //********************************************
             //pass the observable collection to Beaches
-            await Navigation.PushAsync(new Beaches()); 
-
+            //await Navigation.PushAsync(new Beaches()); 
+            await Navigation.PushAsync(new Beaches(beachCollection)); 
+            
         }
     }
 }

@@ -74,7 +74,6 @@ namespace beach_day
             }
         }
 
-        ///*****************************DELETE THIS FUNCTION
         //deletes the item passed via command parameter from the observable collection, which reflects in the displayed viewlist, and deletes from the DB too
         private async void MenuItem_Delete_Clicked(object sender, EventArgs e)
         {
@@ -110,7 +109,10 @@ namespace beach_day
                 if (firstLabel.TextDecorations == Xamarin.Forms.TextDecorations.Strikethrough)
                     firstLabel.TextDecorations = Xamarin.Forms.TextDecorations.None;
                 else firstLabel.TextDecorations = Xamarin.Forms.TextDecorations.Strikethrough;
+
+                VibratePhone();
             }
+            //else throw exception (could not find a Label view within the stacklayout)
         }
 
         /// <summary>
@@ -130,6 +132,30 @@ namespace beach_day
                 }
             }
             return -1;
+        }
+
+        /// <summary>
+        ///     Vibrates the phone
+        /// </summary>
+        private void VibratePhone()
+        {
+            try
+            {
+                // Use default vibration length
+                //Vibration.Vibrate();
+
+                // Or use specified time
+                var duration = TimeSpan.FromMilliseconds(50);
+                Vibration.Vibrate(duration);
+            }
+            catch (FeatureNotSupportedException ex)
+            {
+                // Feature not supported on device
+            }
+            catch (Exception ex)
+            {
+                // Other error has occurred.
+            }
         }
 
     }
