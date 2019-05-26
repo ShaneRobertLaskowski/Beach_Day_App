@@ -19,6 +19,7 @@ namespace beach_day.Droid
 
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            //Xamarin.FormsMaps.Init(this, savedInstanceState); //(this, bundle)
             LoadApplication(new App());
         }
     }

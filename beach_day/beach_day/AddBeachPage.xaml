@@ -22,16 +22,30 @@
                 VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" 
                    Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/>
 
+            <!-- Note: the Text values must be initalized and set to null -> "" for the multi trigger to work -->
             <Entry Placeholder="Enter Name..." Grid.Column="0" Grid.Row="1" 
-                   x:Name="BeachEntryName" Grid.ColumnSpan="2"/>
+                   x:Name="BeachEntryName" Grid.ColumnSpan="2" Text=""/>
             <Entry x:Name="BeachEntryLat" Placeholder="Enter Latitude..." Grid.Column="0" 
-                   Grid.Row="2" Grid.ColumnSpan="2" Keyboard="Numeric"/>
+                   Grid.Row="2" Grid.ColumnSpan="2" Keyboard="Numeric" Text=""/>
             <Entry x:Name="BeachEntryLng" Placeholder="Enter Longitude..." Grid.Column="0" 
-                   Grid.Row="3" Grid.ColumnSpan="2" Keyboard="Numeric"/>
+                   Grid.Row="3" Grid.ColumnSpan="2" Keyboard="Numeric" Text=""/>
 
             <Button Style="{StaticResource DefaultButton1}" Grid.Column="0" Grid.Row="4" 
-                    Grid.ColumnSpan="3" Text="Add Beach"/>
-            
+                    Grid.ColumnSpan="3" Text="Add Beach" Clicked="Add_Beach_Button_Clicked">
+                <Button.Triggers>
+                    <!-- This multi-Trigger disables the Button until one of the 3 labels are not empty-->
+                    <!-- We want it so that all 3 must be not empty in order to enable the button -> we must use IValueConverter (see documentation)-->
+                    <MultiTrigger TargetType="Button">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding Source={x:Reference BeachEntryName}, Path=Text.Length}" Value="0" />
+                            <BindingCondition Binding="{Binding Source={x:Reference BeachEntryLat}, Path=Text.Length}" Value="0" />
+                            <BindingCondition Binding="{Binding Source={x:Reference BeachEntryLng}, Path=Text.Length}" Value="0" />
+                        </MultiTrigger.Conditions>
+                        <Setter Property="IsEnabled" Value="False" />
+                    </MultiTrigger>
+                </Button.Triggers>
+            </Button>
+
         </Grid>
 
     </ContentPage.Content>

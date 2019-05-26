@@ -51,10 +51,12 @@ namespace beach_day
             await Navigation.PushAsync(new AddBeachPage(beachCollection)); //beachCollection -> use this a argument
         }
 
-        //delete the beach from the observable collection, eventually this will also delete from a DB table
+        //delete the beach from the observable collection/Picker, eventually this will also delete from a DB table
         private void Button_DeletBeach_Clicked(object sender, EventArgs e)
         {
-
+            //delete the object first from the DB then from the Picker/observable collection
+            beachCollection.Remove((BeachPlace)BeachPicker.SelectedItem); //removes the selected item (from both picker and obs collection)
+            BeachPicker.SelectedItem = null; //"deselects" any item selected by the Picker view.
         }
     }
 }
