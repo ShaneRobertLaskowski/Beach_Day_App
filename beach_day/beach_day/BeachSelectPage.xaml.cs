@@ -144,9 +144,6 @@ namespace beach_day
                 beach1, beach2, beach3, beach4, beach5, beach6, beach7
             };
 
-            //***************************** we want to pass this observable collection to pushAsync function at bottom of page
-            //***************************make the observable collection have bigger scope 
-
             //ObservableCollection<BeachPlace> testBeaches = new ObservableCollection<BeachPlace>(beaches);
             //BeachPicker.ItemsSource = new ObservableCollection<BeachPlace>(beaches);
             beachCollection = new ObservableCollection<BeachPlace>(beaches);
@@ -186,8 +183,6 @@ namespace beach_day
 
         private async void Toolbar_Beaches_Clicked(object sender, EventArgs e)
         {
-            //********************************************
-            //pass the observable collection to Beaches
             //await Navigation.PushAsync(new Beaches()); 
             await Navigation.PushAsync(new Beaches(beachCollection)); 
             
