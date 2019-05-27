@@ -1,7 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:beach_day"
              x:Class="beach_day.AddBeachPage">
+    
+    <!--The xmlns:local="clr-namespace:beach_day" is needed for the MultiTriggerConverter resource-->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:MultiTriggerConverter x:Key="dataHasBeenEntered" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         <Grid BackgroundColor="{StaticResource ThemeColor2}">
             <Grid.RowDefinitions>
@@ -31,17 +40,30 @@
                    Grid.Row="3" Grid.ColumnSpan="2" Keyboard="Numeric" Text=""/>
 
             <Button Style="{StaticResource DefaultButton1}" Grid.Column="0" Grid.Row="4" 
-                    Grid.ColumnSpan="3" Text="Add Beach" Clicked="Add_Beach_Button_Clicked">
+                    Grid.ColumnSpan="3" Text="Add Beach" Clicked="Add_Beach_Button_Clicked" IsEnabled="False">
                 <Button.Triggers>
                     <!-- This multi-Trigger disables the Button until one of the 3 labels are not empty-->
                     <!-- We want it so that all 3 must be not empty in order to enable the button -> we must use IValueConverter (see documentation)-->
-                    <MultiTrigger TargetType="Button">
+                    <!-- <MultiTrigger TargetType="Button">
                         <MultiTrigger.Conditions>
                             <BindingCondition Binding="{Binding Source={x:Reference BeachEntryName}, Path=Text.Length}" Value="0" />
                             <BindingCondition Binding="{Binding Source={x:Reference BeachEntryLat}, Path=Text.Length}" Value="0" />
                             <BindingCondition Binding="{Binding Source={x:Reference BeachEntryLng}, Path=Text.Length}" Value="0" />
                         </MultiTrigger.Conditions>
                         <Setter Property="IsEnabled" Value="False" />
+                    </MultiTrigger>
+                    -->
+                    <!--This multi-trigger is a "require all", in that all 3 labels must not be empty in order to enable the "Add" button-->
+                    <MultiTrigger TargetType="Button">
+                        <MultiTrigger.Conditions>
+                            <BindingCondition Binding="{Binding Source={x:Reference BeachEntryName}, Path=Text.Length,
+                              Converter={StaticResource dataHasBeenEntered}}" Value="true" />
+                            <BindingCondition Binding="{Binding Source={x:Reference BeachEntryLat}, Path=Text.Length,
+                              Converter={StaticResource dataHasBeenEntered}}" Value="true" />
+                            <BindingCondition Binding="{Binding Source={x:Reference BeachEntryLng}, Path=Text.Length,
+                              Converter={StaticResource dataHasBeenEntered}}" Value="true" />
+                        </MultiTrigger.Conditions>
+                        <Setter Property="IsEnabled" Value="True" />
                     </MultiTrigger>
                 </Button.Triggers>
             </Button>

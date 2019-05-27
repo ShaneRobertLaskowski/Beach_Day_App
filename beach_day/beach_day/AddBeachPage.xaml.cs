@@ -37,9 +37,8 @@ namespace beach_day
             //get the values of the 3 labels, then create a new BeachPlace object and add it  to the observable collection
             //check to see if the 3 labels have appropriate values before accepting, else toss an alert
             //remember, the Name of the beach should be unique and the lat/lng need(?) to be percise to 6 digits lat: -90.000000 to 90.000000 and lng: -180.000000 to 180.000000
-            if (CheckProperBeachName(BeachEntryName.Text) && CheckProperLatitudeValue(BeachEntryLat.Text) && 
-                CheckProperLongitudeValue(BeachEntryLng.Text))
-            { 
+            if (CheckProperLatitudeValue(BeachEntryLat.Text) && CheckProperLongitudeValue(BeachEntryLng.Text) && CheckProperBeachName(BeachEntryName.Text))
+            {
                 string name = BeachEntryName.Text;
                 double lat = double.Parse(BeachEntryLat.Text);
                 double lng = double.Parse(BeachEntryLng.Text);
@@ -75,13 +74,32 @@ namespace beach_day
         private bool CheckProperLatitudeValue(string latitudeToCheck)
         {
             //should really do TryParse and check for bad input
-
+            if (!float.TryParse(latitudeToCheck, out float numericResult)) //************If user input is "90.000001" then numericResult is 90, this percision sucks, need to use double 
+            {
+                DisplayAlert("Error","Latitude value \"" + latitudeToCheck + "\" is not a number","OK");
+                return false;
+            }
+            if (numericResult > 90.000000f || numericResult < -90.000000f)
+            {
+                DisplayAlert("Error", "Latitude value must be between -90 and 90 degrees", "OK");
+                return false;
+            }
             return true;
         }
         private bool CheckProperLongitudeValue(string longitudeToCheck)
-        {            
+        {
             //should really do TryParse and check for bad input
 
+            if (!float.TryParse(longitudeToCheck, out float numericResult))
+            {
+                DisplayAlert("Error", "Latitude value \"" + longitudeToCheck + "\" is not a number", "OK");
+                return false;
+            }
+            if (numericResult > 180.000000f || numericResult < -180.000000f)
+            {
+                DisplayAlert("Error", "Longitude value must be between -180 and 180 degrees", "OK");
+                return false;
+            }
             return true;
         }
 
@@ -91,7 +109,8 @@ namespace beach_day
     //https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/triggers#multi
     /// <summary>
     ///     This helps us make a "require all" multi-trigger.  "The converter code below transforms the Text.Length
-    ///     binding into a bool that indicates whether a field is empty or not." this allows us to perform the proper logic
+    ///     binding into a bool that indicates whether a field is empty or not." "The multi trigger conditions use 
+    ///     the converter to turn the Text.Length value into a boolean." this allows us to perform the proper logic
     ///     required to implement a "require all" multi-trigger for length checking of the Entry views.
     /// </summary>
     public class MultiTriggerConverter : IValueConverter
