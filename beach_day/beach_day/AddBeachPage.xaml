@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:beach_day"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              x:Class="beach_day.AddBeachPage">
     
     <!--The xmlns:local="clr-namespace:beach_day" is needed for the MultiTriggerConverter resource-->
@@ -12,13 +13,13 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <Grid BackgroundColor="{StaticResource ThemeColor2}">
+        <Grid BackgroundColor="{StaticResource ThemeColor2}" x:Name="PageGridLayout">
             <Grid.RowDefinitions>
-                <RowDefinition Height="4*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.6*"/> <!--make this 3/5ths of page-->
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.1*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -26,10 +27,16 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <BoxView BackgroundColor="Fuchsia" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/>
+            <BoxView BackgroundColor="Black" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/>
+
             <Label Text="Welcome to the Beaches page!  This should be a google map, but it isn't :("
                 VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" 
                    Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/>
+
+            <!--The widthRequest and height request seem to make no difference, by default it probably fills its container-->
+            <!--<maps:Map WidthRequest="320" HeightRequest="200" x:Name="MyMap" IsShowingUser="true"
+                  MapType="Hybrid" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" />
+            -->
 
             <!-- Note: the Text values must be initalized and set to null -> "" for the multi trigger to work -->
             <Entry Placeholder="Enter Name..." Grid.Column="0" Grid.Row="1" 

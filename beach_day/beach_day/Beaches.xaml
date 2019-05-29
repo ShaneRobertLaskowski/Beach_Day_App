@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              x:Class="beach_day.Beaches">
     <ContentPage.Content>
-        <Grid BackgroundColor="{StaticResource ThemeColor2}">
+        <Grid BackgroundColor="{StaticResource ThemeColor2}" x:Name="PageGridLayout">
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="3*"/> <!--2* .... make this 3/5ths of page-->
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -15,10 +16,14 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <BoxView BackgroundColor="Fuchsia" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/>
-            <Label Text="Welcome to the Beaches page!  This should be a google map, but it isn't :("
+            <BoxView BackgroundColor="Black" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/>
+            <Label Text="This should be a google map, but it isn't :("
                 VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" 
-                   Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/>
+                   Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" TextColor="White"/>
+
+            <!--The widthRequest and height request seem to make no difference, by default it probably fills its container-->
+            <!--<maps:Map WidthRequest="320" HeightRequest="200" x:Name="GoogleMap" IsShowingUser="true"
+                  MapType="Hybrid" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/> -->
 
             <Label Text="Beach Address" VerticalOptions="CenterAndExpand" 
                    HorizontalOptions="CenterAndExpand" Grid.Column="0" Grid.Row="1" 

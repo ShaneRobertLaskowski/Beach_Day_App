@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Globalization;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Forms.Maps;
 
 namespace beach_day
 {
@@ -27,6 +28,26 @@ namespace beach_day
             beachCollection = beachPlaces;
 
             InitializeComponent();
+
+            AddGoogleMap();
+        }
+
+        /// <summary>
+        ///     creates a google map and assigns it to the appopriate grid location of the Page.  the initial zoom level is set to 75 miles
+        ///     and the intial center of the map is focused at San Diego (Lat: 32.7157, Lng: -117.1611).
+        /// </summary>
+        private void AddGoogleMap()
+        {
+            var map = new Map(MapSpan.FromCenterAndRadius(new Position(32.7157, -117.1611), Distance.FromMiles(75.0)))
+            {
+                IsShowingUser = true,
+                MapType = MapType.Hybrid,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HorizontalOptions = LayoutOptions.FillAndExpand
+            };
+
+            PageGridLayout.Children.Add(map, 0, 0);
+            Grid.SetColumnSpan(map, 3);
         }
 
         /// <summary>
