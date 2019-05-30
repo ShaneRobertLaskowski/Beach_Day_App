@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Globalization;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Xamarin.Forms.Maps;
+using Xamarin.Forms.GoogleMaps; //using Xamarin.Forms.Maps;
 
 namespace beach_day
 {
@@ -17,6 +17,7 @@ namespace beach_day
 	public partial class AddBeachPage : ContentPage
 	{
         private static ObservableCollection<BeachPlace> beachCollection; //the user will be able to add to this within the Add_Beach_Button_Clicked beach method
+        private Map map;
 
         public AddBeachPage ()
 		{
@@ -26,9 +27,7 @@ namespace beach_day
         public AddBeachPage(ObservableCollection<BeachPlace> beachPlaces)
         {
             beachCollection = beachPlaces;
-
             InitializeComponent();
-
             AddGoogleMap();
         }
 
@@ -38,17 +37,54 @@ namespace beach_day
         /// </summary>
         private void AddGoogleMap()
         {
-            var map = new Map(MapSpan.FromCenterAndRadius(new Position(32.7157, -117.1611), Distance.FromMiles(75.0)))
+            map = new Map();
+            map.MyLocationEnabled = true;
+            map.UiSettings.MyLocationButtonEnabled = true;
+            map.MapType = MapType.Hybrid;
+            map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(32.7157, -117.1611), Distance.FromMiles(75.0)));
+            /*
+            map = new Map(MapSpan.FromCenterAndRadius(new Position(32.7157, -117.1611), Distance.FromMiles(75.0)))
             {
                 IsShowingUser = true,
                 MapType = MapType.Hybrid,
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 HorizontalOptions = LayoutOptions.FillAndExpand
             };
+            */
+            map.MapClicked += Map_MapClicked;
 
             PageGridLayout.Children.Add(map, 0, 0);
             Grid.SetColumnSpan(map, 3);
         }
+
+        /// <summary>
+        ///     This method is called when the user taps on the google map.  A pin is placed on the posistion
+        ///     of the tap and the lat/lng Entry views are filled out with the apporpriate values.
+        /// </summary>
+        /// <param name="sender">The google map</param>
+        /// <param name="e"></param>
+        private void Map_MapClicked(object sender, MapClickedEventArgs e)
+        {
+            double roundedLat = Math.Round(e.Point.Latitude, 6);
+            double roundedLng = Math.Round(e.Point.Longitude, 6);
+
+            BeachEntryLat.Text = roundedLat.ToString();
+            BeachEntryLng.Text = roundedLng.ToString();
+
+            Map mapClickedOn = (Map)sender;
+
+            Pin pinToAdd = new Pin
+            {
+                Position = new Position(e.Point.Latitude, e.Point.Longitude),
+                Label = "Geocode location here",
+                Address = roundedLat.ToString() + ", " + roundedLng.ToString()
+            };
+
+
+            mapClickedOn.Pins.Clear();
+            mapClickedOn.Pins.Add(pinToAdd);
+        }
+
 
         /// <summary>
         ///     once the 3 Entry view are filled in (the name, lat, and lng entries) the user input is checked, and if everything is appopriate, then the beach
@@ -74,6 +110,7 @@ namespace beach_day
 
                 List<Entry> entries = new List<Entry> { BeachEntryName, BeachEntryLat, BeachEntryLng };
                 Clear_Entry_Fields(entries);
+                map.Pins.Clear();
                 DisplayAlert("Success", "Beach saved", "OK");
             }
         }
@@ -152,6 +189,7 @@ namespace beach_day
         }
 
     }
+
 
     //This code is pulled from Documentation:
     //https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/triggers#multi
