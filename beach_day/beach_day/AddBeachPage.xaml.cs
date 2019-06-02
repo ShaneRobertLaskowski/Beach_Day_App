@@ -93,7 +93,7 @@ namespace beach_day
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Add_Beach_Button_Clicked(object sender, EventArgs e)
+        private async void Add_Beach_Button_Clicked(object sender, EventArgs e)
         {
             //add beach to observable collection and to the DB
             
@@ -106,12 +106,14 @@ namespace beach_day
                 BeachPlace newBeachToAdd = new BeachPlace { Name = name, Latitude = lat, Longitude = lng };
 
                 beachCollection.Add(newBeachToAdd);
+
                 //add the newBeachToAdd to the DB
+                int beachPlaceID = await App.BeachPlaceDatabaseInstance.SaveItemAsync(newBeachToAdd);
 
                 List<Entry> entries = new List<Entry> { BeachEntryName, BeachEntryLat, BeachEntryLng };
                 Clear_Entry_Fields(entries);
                 map.Pins.Clear();
-                DisplayAlert("Success", "Beach saved", "OK");
+                await DisplayAlert("Success", "Beach saved", "OK");
             }
         }
 
@@ -135,15 +137,20 @@ namespace beach_day
         /// <returns>returns true if valid, false if not</returns>
         private bool CheckProperBeachName(string nameToCheck)
         {
-            //check if its name not in DB (and it shouldn't also already be in the obs collection)
+            //Check to see if the name of the beach, nameToCheck, is in the observable collection (which is basically the Picker view's content)
             foreach (BeachPlace beach in beachCollection)
             {
                 if (beach.Name == nameToCheck)
                 {
-                    DisplayAlert("Error","The beach name \"" + nameToCheck + "\" is already used","OK");
+                    DisplayAlert("Error","The beach name \"" + nameToCheck + "\" is already in your list","OK");
                     return false;
                 }
             }
+
+            //might want to do a double check and query the DB table of BeachPlaces to see if the name exists in there too 
+            //(but if that is case our obs collection should have it)
+
+
             return true;
         }
 

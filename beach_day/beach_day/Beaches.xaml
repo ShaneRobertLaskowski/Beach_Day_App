@@ -25,7 +25,7 @@
             <!--<maps:Map WidthRequest="320" HeightRequest="200" x:Name="GoogleMap" IsShowingUser="true"
                   MapType="Hybrid" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"/> -->
 
-            <Label Text="Beach Address" VerticalOptions="CenterAndExpand" 
+            <Label Text="Insert Geocoded Beach Address Here" VerticalOptions="CenterAndExpand" 
                    HorizontalOptions="CenterAndExpand" Grid.Column="0" Grid.Row="1" 
                    Grid.ColumnSpan="3"/>
 

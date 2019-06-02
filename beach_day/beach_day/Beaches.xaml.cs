@@ -34,8 +34,8 @@ namespace beach_day
             InitializeComponent();
             AddGoogleMap();
 
-            BeachPlace beach8 = new BeachPlace { Name = "Test Beach", Latitude = 32.750000, Longitude = -117.252000 }; // TEST
-            beachPlaces.Add(beach8);
+            //BeachPlace beach8 = new BeachPlace { Name = "Test Beach", Latitude = 32.750000, Longitude = -117.252000 }; // TEST
+            //beachPlaces.Add(beach8);
 
             BeachPicker.ItemsSource = beachCollection; //binds the observable collection to the Picker view
 
@@ -105,14 +105,18 @@ namespace beach_day
             await Navigation.PushAsync(new AddBeachPage(beachCollection)); //beachCollection -> use this a argument
         }
 
-        //delete the beach from the observable collection/Picker, eventually this will also delete from a DB table
+        //delete the beach from the observable collection/Picker and from the DB table of BeachPlaces
         private async void Button_DeleteBeach_Clicked(object sender, EventArgs e)
         {
             //delete the object first from the DB then from the Picker/observable collection
             if(await DisplayAlert("Warning","Are you sure you want to delete this beach?", "Yes", "No"))
             {
-                beachCollection.Remove((BeachPlace)BeachPicker.SelectedItem); //removes the selected item (from both picker and obs collection)
+                BeachPlace beachToRemove = (BeachPlace)BeachPicker.SelectedItem;
+                beachCollection.Remove(beachToRemove); //removes the selected item (from both picker and obs collection)
                 BeachPicker.SelectedItem = null; //"deselects" any item selected by the Picker view.
+
+                //deletes the beach from the DB table of BeachPlaces
+                int beachPlaceID = await App.BeachPlaceDatabaseInstance.DeleteItemAsync(beachToRemove);
 
                 map.Pins.Clear(); //the map pin is placed on the map => delete it, ***note, this deletes all pins, only 1 pin should be on the map 
                                   //in the future, if multiple pins are on the map that want to be kept on, we have a problem, we going to have to

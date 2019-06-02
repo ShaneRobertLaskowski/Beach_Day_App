@@ -31,12 +31,12 @@ namespace beach_day
 
         }
 
-        private async void Populate_CheckList() //make this async if adding in database functionality (it has tasks to be awaited)
+        private async void Populate_CheckList()
         {
            
             var allItems = await App.ItemDatabaseInstance.GetAllChecklistItems();
-            items = new ObservableCollection<ChecklistItemModel>(allItems); //testItemList
-            ItemViewList.ItemsSource = items;
+            items = new ObservableCollection<ChecklistItemModel>(allItems);
+            ItemViewList.ItemsSource = items; //this is not assignment statement, this is pairing the obs collection "items" to the listview ???
        
         }
 

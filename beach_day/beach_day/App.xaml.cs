@@ -21,6 +21,7 @@ namespace beach_day
 
         //this code block creates our cross-platform SQLite database instance if its not already created
         //because its static the app will only have to open and close 1 connection for our app's entire use of it.
+        //Therefore, no need to open/close connection to the database with every query operation
         static ItemListDatabase itemDatabase;
         public static ItemListDatabase ItemDatabaseInstance
         {
@@ -34,6 +35,22 @@ namespace beach_day
             }
 
         }
+
+        //second database for BeachPlace objects
+        static BeachPlaceDatabase beachPlaceDatabase;
+        public static BeachPlaceDatabase BeachPlaceDatabaseInstance
+        {
+            get
+            {
+                if (beachPlaceDatabase == null)
+                {
+                    beachPlaceDatabase = new BeachPlaceDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "BeachPlaceSQLite.db3"));
+                }
+                return beachPlaceDatabase;
+            }
+
+        }
+
 
         protected override void OnStart()
         {

@@ -9,7 +9,7 @@ using beach_day.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.Collections.ObjectModel;
-using Xamarin.Essentials;
+using Xamarin.Essentials; 
 
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
@@ -127,10 +127,19 @@ namespace beach_day
             return weatherList;
         }
 
-        //binds a list of BeachPlace objects to the Picker
-        private void PopulateBeachListView()
-        {
 
+        //***instead of just hardcoding, try loading in the Table of BeachPlaces records (if any) 
+        //and inserting in the Obs collection (to test, add along with the hardcoded beaches)
+        private async void PopulateBeachListView()
+        {
+            ///
+            var allBeaches = await App.BeachPlaceDatabaseInstance.GetAllBeachPlaces();
+            beachCollection = new ObservableCollection<BeachPlace>(allBeaches);
+            BeachPicker.ItemsSource = beachCollection;
+
+            ///
+            
+            /*
             BeachPlace beach1 = new BeachPlace { Name = "North Carlsbad Beach", Latitude = 33.163404, Longitude = -117.358215 };
             BeachPlace beach2 = new BeachPlace { Name = "Oceanside Beach", Latitude = 33.194088, Longitude = -117.384206 };
             BeachPlace beach3 = new BeachPlace { Name = "Moonlight Beach", Latitude = 33.047734, Longitude = -117.297918 };
@@ -144,11 +153,9 @@ namespace beach_day
                 beach1, beach2, beach3, beach4, beach5, beach6, beach7
             };
 
-            //ObservableCollection<BeachPlace> testBeaches = new ObservableCollection<BeachPlace>(beaches);
-            //BeachPicker.ItemsSource = new ObservableCollection<BeachPlace>(beaches);
             beachCollection = new ObservableCollection<BeachPlace>(beaches);
             BeachPicker.ItemsSource = beachCollection;
-
+            */
         }
 
         async void MenuItem_MoreInfo_Clicked(object sender, EventArgs e)
