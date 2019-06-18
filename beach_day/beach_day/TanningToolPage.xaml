@@ -28,7 +28,7 @@
                 Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                 TextColor="{StaticResource ThemeColor1}" x:Name="TotalTimeTimer"/>
 
-            <Label Text ="Set Alert Interval Time:" Grid.Row="1" Grid.Column="0" 
+            <Label Text ="Alert Frequency:" Grid.Row="1" Grid.Column="0" 
                    HorizontalOptions="Center" VerticalOptions="Center" TextColor="{StaticResource ThemeColor1}"
                    FontSize="Medium"/>
             <Entry Placeholder="Min" Grid.Row="1" Grid.Column="1" x:Name="MinuteEntry"
