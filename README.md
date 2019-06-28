@@ -1,12 +1,9 @@
 ## Beach Day
 A Xamarin Forms Mobile app that is used to provide the user with some tools for their day at the beach.  Currently includes a tanning alert tool, simple checklist, and a weather forecast page.  Currently only tested on Android (Having difficulty finding a Apple product).  Features simple Google Analytics, simple SQLite databases for persistent data and Weather Data pulled from a RESTful API.
-
+* * *
 ### SnapShots
-![IMAGE](https://i.imgur.com/15wvVvFm.png) 
-![IMAGE](https://i.imgur.com/fVHlkTZm.png)
-![IMAGE](https://i.imgur.com/BflqsMVm.png)
-![IMAGE](https://i.imgur.com/5PAepMqm.png)
-![IMAGE](https://i.imgur.com/cd3eBxTm.png)
+![IMAGE](https://i.imgur.com/15wvVvFm.png) ![IMAGE](https://i.imgur.com/fVHlkTZm.png)![IMAGE](https://i.imgur.com/BflqsMVm.png)![IMAGE](https://i.imgur.com/5PAepMqm.png) ![IMAGE](https://i.imgur.com/cd3eBxTm.png)
+* * *
 ### Prerequisites
 
 What things you need to install the software and how to install them.
@@ -17,14 +14,14 @@ For Android builds, get a Google API key for Android SDK and SHA-1 fingerprint f
 https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/map
 https://developers.google.com/maps/documentation/android-sdk/get-api-key
 ```
-
+* * *
 ### Issues
 * Need to Implement Run-Time Permission Requests (for Fine/Course location) SDK build for Android is set to less than 22.
 * Making the features of the app more "discoverable" (how to inform the user what the tanning tool is used for).
 * Tanning Tool timer needs to be reworked (Task.Delay() value is arbitrary it leads to displayed seconds being either sped up or slowed down, perhaps use Timer.Interval function).
 * Forcing the user from creating beach places that are not actual beach locations
 * The checklist's strikethrough graphic should be Red
-
+* * *
 ### Considerations For Improvements
 * Overhaul spacing of data for better UI
 * Rework the Horizontal Listview
@@ -35,12 +32,11 @@ https://developers.google.com/maps/documentation/android-sdk/get-api-key
 * Implement MVVM
 * add an Icon for this App (replace default Xamarin Forms icon).
 * Geocode user's Beach Places.
-
-
+* * *
 ### Author(s)
 
 * **Shane Laskowski**
-
+-------------------------
 ### 3rd Party Software
 
 * SQLite-net-pcl by Frank A. Krueger
