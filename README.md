@@ -1,7 +1,12 @@
 ## Beach Day
 A Xamarin Forms Mobile app that is used to provide the user with some tools for their day at the beach.  Currently includes a tanning alert tool, simple checklist, and a weather forecast page.  Currently only tested on Android (Having difficulty finding a Apple product).  Features simple Google Analytics, simple SQLite databases for persistent data and Weather Data pulled from a RESTful API.
 
-
+### SnapShots
+![IMAGE](https://i.imgur.com/15wvVvFm.png) 
+![IMAGE](https://i.imgur.com/fVHlkTZm.png)
+![IMAGE](https://i.imgur.com/BflqsMVm.png)
+![IMAGE](https://i.imgur.com/5PAepMqm.png)
+![IMAGE](https://i.imgur.com/cd3eBxTm.png)
 ### Prerequisites
 
 What things you need to install the software and how to install them.
