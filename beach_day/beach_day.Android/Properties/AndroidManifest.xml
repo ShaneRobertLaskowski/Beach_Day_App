@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.beach_day" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="22" /> <!--This was set to target 27, but i get permission runtime error for the google map, need to figure out the "Android 6.0 runtime permission system"-->
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="22" /> <!--This was set to target 27, but permission runtime error for the google map, need to figure out the "Android 6.0 runtime permission system"-->
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!--https://docs.microsoft.com/en-us/xamarin/android/app-fundamentals/permissions?tabs=windows-->
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
@@ -10,7 +10,7 @@
 	<uses-permission android:name="android.permission.INTERNET" />
 	<application android:label="beach_day.Android">
 		<uses-library android:name="org.apache.http.legacy" android:required="false" />
-		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyBw7Cc8r4V9qZPc-dvHt8GEo5jm6VqQV1c" />
+		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="" /> <!-- Insert API key here -->
     <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 	</application>
 </manifest>

@@ -30,7 +30,7 @@ namespace beach_day
 			InitializeComponent ();
 		}
 
-        //***i want this method to be static?
+        //***should this be static method?
         public async void Button_Start_Clicked(object sender, EventArgs e)
         {
             //if number of threads waiting is more than 0, then abort this thread;
@@ -51,7 +51,7 @@ namespace beach_day
         }
 
 
-        /*This solution is not perfect, but it works on a thread different from UI thread, a better solution is desirable.
+        /*This solution is not perfect, but it works on a thread different from UI thread, a better solution that doesn't rely on arbitrary Delay amount is desired.
          * this timer works by "refreshing" the displayed time by refering to an authoratative clock (DateTime.Now).
          * the authoratative time is the device's current time, which is used to track the change in time.
          * it relies on Task.Delay(...) with an argument that is "hardcody".  You may notice that the timespan between the 
@@ -65,7 +65,7 @@ namespace beach_day
             isRunning = true;
             resetFlag = false;
             DateTime StartTime = DateTime.Now;
-            string InitialrepresentedTime = TotalTimeTimer.Text; //should be xx:xx:xx
+            string InitialrepresentedTime = TotalTimeTimer.Text; //should be xx:xx:xx format
             DateTime initRepresentedDateTime = Convert.ToDateTime(InitialrepresentedTime);
             TimeSpan interval;
             DateTime UpdatedTime;
@@ -74,7 +74,7 @@ namespace beach_day
 
             while (isRunning)
             {
-                await Task.Delay(900); //*******controls the "refresh rate" of the time displayed, a shorter deplay improves accuracy, but gives performance hit.
+                await Task.Delay(90); //*******controls the "refresh rate" of the time displayed, a shorter deplay updates the View faster. (((The delay amount is arbitrary)))
                 interval = DateTime.Now.Subtract(StartTime);
                 UpdatedTime = initRepresentedDateTime.Add(interval); //****why not just assign interval to UpdatedTime?
                 TotalTimeTimer.Text = UpdatedTime.ToString("HH:mm:ss");
