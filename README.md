@@ -24,7 +24,6 @@ https://developers.google.com/maps/documentation/android-sdk/get-api-key
 * Tanning Tool timer needs to be reworked (Task.Delay() value is arbitrary it leads to displayed seconds being either sped up or slowed down, perhaps use Timer.Interval function).
 * Forcing the user from creating beach places that are not actual beach locations
 * The checklist's strikethrough graphic should be Red
-*
 
 ### Considerations For Improvements
 * Overhaul spacing of data for better UI
