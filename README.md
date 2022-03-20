@@ -23,6 +23,7 @@ https://developers.google.com/maps/documentation/android-sdk/get-api-key
 * The checklist's strikethrough graphic should be Red.
 * * *
 ### Considerations For Improvements
+* Switch from DarkSky API to Pirate Weather API to get the app to function again
 * Overhaul spacing of data for better UI
 * Rework the Horizontal Listview
 * Add in the ability for the user to type up their own notes about their beaches.
