@@ -42,7 +42,9 @@ namespace beach_day
             var lng = beachSelected.Longitude.ToString();
 
             var client = new HttpClient();
-            var weatherRequestURL = "https://api.darksky.net/forecast/5ee647fd1cf5f4f33a5ee6ecbcd904db/" + lat + "," + lng;
+            var weatherRequestURL = "https://api.pirateweather.net/forecast/YOUR-PIRATEWEATHER-API-KEY/" + lat + "," + lng;
+            //
+            // example dark sky api: "https://api.darksky.net/forecast/5ee647fd1cf5f4f33a5ee6ecbcd904db/"
             var uri = new Uri(weatherRequestURL);
             DarkSkyForecast weatherForcastData = new DarkSkyForecast();
 

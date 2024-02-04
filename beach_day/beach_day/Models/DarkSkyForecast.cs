@@ -96,8 +96,9 @@ namespace beach_day.Models
         [JsonProperty("ozone")]
         public double Ozone { get; set; }
 
+        //error occurs here, PirateWeather is giving a string "none" for this property NOT A Number! => try changing from PrecipType? to string
         [JsonProperty("precipType", NullValueHandling = NullValueHandling.Ignore)]
-        public PrecipType? PrecipType { get; set; }
+        public string PrecipType { get; set; }
     }
 
     public partial class Daily
